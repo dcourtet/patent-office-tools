@@ -1,2 +1,5 @@
 # default behavior for text files
 * text=auto
+
+# visual studio solution files
+*.sln text eol=crlf
