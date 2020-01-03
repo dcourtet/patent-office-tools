@@ -1,5 +1,8 @@
 # default behavior for text files
 * text=auto
 
+# resharper settings
+*.dotsettings text eol=lf
+
 # visual studio solution files
 *.sln text eol=crlf
