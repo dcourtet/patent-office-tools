@@ -8,6 +8,14 @@
 ## VISUAL STUDIO
 ##################################
 
+*.pfx
 *.suo
+*.user
 
 .vs/
+
+[Bb]in/
+[Dd]ebug/
+[Oo]bj/
+[Pp]ublish/
+[Rr]elease/

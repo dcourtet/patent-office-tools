@@ -1,6 +1,9 @@
 # default behavior for text files
 * text=auto
 
+# csharp source files
+*.cs diff=csharp
+
 # resharper settings
 *.dotsettings text eol=lf
 
