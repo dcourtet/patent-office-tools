@@ -17,6 +17,8 @@
 namespace enovating.POT.MSW
 {
     using System;
+    using System.IO;
+    using enovating.POT.MSW.Core;
 
     /// <summary>
     ///     Represents the current Microsoft Word Add-in.
@@ -31,6 +33,12 @@ namespace enovating.POT.MSW
 
         private void ThisAddIn_Shutdown(object sender, EventArgs e) { }
 
-        private void ThisAddIn_Startup(object sender, EventArgs e) { }
+        private void ThisAddIn_Startup(object sender, EventArgs e)
+        {
+            var rootDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var workingDirectory = Path.Combine(rootDirectory, "enovating", "patent-office-tools");
+
+            ToolsContext.Initialize(workingDirectory);
+        }
     }
 }
