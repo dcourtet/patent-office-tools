@@ -62,13 +62,14 @@ namespace enovating.POT.MSW
             this._insertButton.Name = "_insertButton";
             this._insertButton.OfficeImageId = "CreateQueryFromWizard";
             this._insertButton.ShowImage = true;
-            this._insertButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this._insertButton_Click);
+            this._insertButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.InsertButton_Click);
             // 
             // Ribbon
             // 
             this.Name = "Ribbon";
             this.RibbonType = "Microsoft.Word.Document";
             this.Tabs.Add(this._ribbonTab);
+            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon_Load);
             this._ribbonTab.ResumeLayout(false);
             this._ribbonTab.PerformLayout();
             this._mainGroup.ResumeLayout(false);

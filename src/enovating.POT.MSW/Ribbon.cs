@@ -16,15 +16,26 @@
 
 namespace enovating.POT.MSW
 {
+    using enovating.POT.MSW.Core;
     using enovating.POT.MSW.UI;
 
     using Microsoft.Office.Tools.Ribbon;
 
     public partial class Ribbon
     {
-        private void _insertButton_Click(object sender, RibbonControlEventArgs e)
+        private void InsertButton_Click(object sender, RibbonControlEventArgs e)
         {
             new InsertForm().ShowDialog();
+        }
+
+        private void Ribbon_Load(object sender, RibbonUIEventArgs e)
+        {
+            _insertButton.Enabled = ToolsContext.Current.Settings.Ready;
+        }
+
+        private void _insertButton_Click(object sender, RibbonControlEventArgs e)
+        {
+
         }
     }
 }

@@ -34,8 +34,13 @@ namespace enovating.POT.MSW.Core
         /// </summary>
         public string WorkingDirectory { get; }
 
+        /// <summary>
+        /// Gets the user settings.
+        /// </summary>
+        public UserSettings Settings { get; }
+
         /// <inheritdoc />
-        public ToolsContext(string workingDirectory)
+        private ToolsContext(string workingDirectory)
         {
             if (string.IsNullOrEmpty(workingDirectory))
             {
@@ -44,6 +49,9 @@ namespace enovating.POT.MSW.Core
 
             Directory.CreateDirectory(workingDirectory);
             WorkingDirectory = workingDirectory;
+
+            var settingsTarget = Path.Combine(WorkingDirectory, "settings.json");
+            Settings = UserSettings.Initialize(settingsTarget);
         }
 
         /// <summary>
