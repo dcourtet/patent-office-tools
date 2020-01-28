@@ -36,7 +36,9 @@ namespace enovating.POT.MSW
         {
             this._ribbonTab = this.Factory.CreateRibbonTab();
             this._mainGroup = this.Factory.CreateRibbonGroup();
+            this._insertButton = this.Factory.CreateRibbonButton();
             this._ribbonTab.SuspendLayout();
+            this._mainGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // _ribbonTab
@@ -49,8 +51,18 @@ namespace enovating.POT.MSW
             // 
             // _mainGroup
             // 
+            this._mainGroup.Items.Add(this._insertButton);
             this._mainGroup.Label = "Patent Office Tools";
             this._mainGroup.Name = "_mainGroup";
+            // 
+            // _insertButton
+            // 
+            this._insertButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this._insertButton.Label = "Insert";
+            this._insertButton.Name = "_insertButton";
+            this._insertButton.OfficeImageId = "CreateQueryFromWizard";
+            this._insertButton.ShowImage = true;
+            this._insertButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this._insertButton_Click);
             // 
             // Ribbon
             // 
@@ -59,6 +71,8 @@ namespace enovating.POT.MSW
             this.Tabs.Add(this._ribbonTab);
             this._ribbonTab.ResumeLayout(false);
             this._ribbonTab.PerformLayout();
+            this._mainGroup.ResumeLayout(false);
+            this._mainGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -67,6 +81,7 @@ namespace enovating.POT.MSW
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab _ribbonTab;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup _mainGroup;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton _insertButton;
     }
 
     partial class ThisRibbonCollection

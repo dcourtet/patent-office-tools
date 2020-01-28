@@ -14,17 +14,15 @@
 // Copyright 2019-2020 enovating SA <https://www.enovating.com/>
 // -------------------------------------------------------------------------------------
 
-namespace enovating.POT.MSW
+namespace enovating.POT.MSW.UI
 {
-    using enovating.POT.MSW.UI;
+    using System.Windows.Forms;
 
-    using Microsoft.Office.Tools.Ribbon;
-
-    public partial class Ribbon
+    public partial class InsertForm : Form
     {
-        private void _insertButton_Click(object sender, RibbonControlEventArgs e)
+        public InsertForm()
         {
-            new InsertForm().ShowDialog();
+            InitializeComponent();
         }
     }
 }
