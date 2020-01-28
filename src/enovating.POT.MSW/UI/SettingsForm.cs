@@ -14,34 +14,47 @@
 // Copyright 2019-2020 enovating SA <https://www.enovating.com/>
 // -------------------------------------------------------------------------------------
 
-namespace enovating.POT.MSW
+namespace enovating.POT.MSW.UI
 {
+    using System;
+    using System.Windows.Forms;
+
     using enovating.POT.MSW.Core;
-    using enovating.POT.MSW.UI;
 
-    using Microsoft.Office.Tools.Ribbon;
-
-    public partial class Ribbon
+    public partial class SettingsForm : Form
     {
-        private void InsertButton_Click(object sender, RibbonControlEventArgs e)
+        public SettingsForm()
         {
-            new InsertForm().ShowDialog();
+            InitializeComponent();
         }
 
-        private void RefreshControls()
+        private void ApplyButton_Click(object sender, EventArgs e)
         {
-            _insertButton.Enabled = ToolsContext.Current.Settings.Ready;
+            Close(true);
         }
 
-        private void Ribbon_Load(object sender, RibbonUIEventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
-            RefreshControls();
+            Close(false);
         }
 
-        private void SettingsButton_Click(object sender, RibbonControlEventArgs e)
+        private void Close(bool write)
         {
-            new SettingsForm().ShowDialog();
-            RefreshControls();
+            try
+            {
+                if (write)
+                {
+                    ToolsContext.Current.Settings.Write();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Failed to save settings.");
+            }
+            finally
+            {
+                Close();
+            }
         }
     }
 }

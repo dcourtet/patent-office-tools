@@ -37,6 +37,7 @@ namespace enovating.POT.MSW
             this._ribbonTab = this.Factory.CreateRibbonTab();
             this._mainGroup = this.Factory.CreateRibbonGroup();
             this._insertButton = this.Factory.CreateRibbonButton();
+            this._settingsButton = this.Factory.CreateRibbonButton();
             this._ribbonTab.SuspendLayout();
             this._mainGroup.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +53,7 @@ namespace enovating.POT.MSW
             // _mainGroup
             // 
             this._mainGroup.Items.Add(this._insertButton);
+            this._mainGroup.Items.Add(this._settingsButton);
             this._mainGroup.Label = "Patent Office Tools";
             this._mainGroup.Name = "_mainGroup";
             // 
@@ -63,6 +65,15 @@ namespace enovating.POT.MSW
             this._insertButton.OfficeImageId = "CreateQueryFromWizard";
             this._insertButton.ShowImage = true;
             this._insertButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.InsertButton_Click);
+            // 
+            // _settingsButton
+            // 
+            this._settingsButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this._settingsButton.Label = "Settings";
+            this._settingsButton.Name = "_settingsButton";
+            this._settingsButton.OfficeImageId = "GroupPivotTableOptions";
+            this._settingsButton.ShowImage = true;
+            this._settingsButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.SettingsButton_Click);
             // 
             // Ribbon
             // 
@@ -83,6 +94,7 @@ namespace enovating.POT.MSW
         internal Microsoft.Office.Tools.Ribbon.RibbonTab _ribbonTab;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup _mainGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton _insertButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton _settingsButton;
     }
 
     partial class ThisRibbonCollection
