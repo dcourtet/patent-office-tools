@@ -21,11 +21,14 @@ namespace enovating.POT.MSW.UI
 
     using enovating.POT.MSW.Core;
 
+    /// <inheritdoc />
     public partial class SettingsForm : Form
     {
+        /// <inheritdoc />
         public SettingsForm()
         {
             InitializeComponent();
+            InitializeComponentValue();
         }
 
         private void ApplyButton_Click(object sender, EventArgs e)
@@ -38,12 +41,17 @@ namespace enovating.POT.MSW.UI
             Close(false);
         }
 
+        /// <summary>
+        ///     Close the window.
+        /// </summary>
+        /// <param name="write">If <c>true</c>, writes the settings.</param>
         private void Close(bool write)
         {
             try
             {
                 if (write)
                 {
+                    SetSettings();
                     ToolsContext.Current.Settings.Write();
                 }
             }
@@ -54,6 +62,46 @@ namespace enovating.POT.MSW.UI
             finally
             {
                 Close();
+            }
+        }
+
+        /// <summary>
+        ///     Initialize components value.
+        /// </summary>
+        private void InitializeComponentValue()
+        {
+            if (!ToolsContext.Current.Settings.Ready)
+            {
+                return;
+            }
+
+            _templateDirectoryTextBox.Text = ToolsContext.Current.Settings.TemplateDirectory;
+        }
+
+        /// <summary>
+        ///     Sets the current settings from the components.
+        /// </summary>
+        private void SetSettings()
+        {
+            ToolsContext.Current.Settings.TemplateDirectory = _templateDirectoryTextBox.Text;
+        }
+
+        private void TemplateDirectoryTextBox_Click(object sender, EventArgs e)
+        {
+            using (var target = new FolderBrowserDialog())
+            {
+                target.RootFolder = Environment.SpecialFolder.MyComputer;
+                target.ShowNewFolderButton = false;
+
+                if (!string.IsNullOrEmpty(_templateDirectoryTextBox.Text))
+                {
+                    target.SelectedPath = _templateDirectoryTextBox.Text;
+                }
+
+                if (target.ShowDialog() == DialogResult.OK)
+                {
+                    _templateDirectoryTextBox.Text = target.SelectedPath;
+                }
             }
         }
     }
