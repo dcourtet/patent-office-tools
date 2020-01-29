@@ -19,6 +19,7 @@ namespace enovating.POT.MSW.Core
     using System;
     using System.IO;
 
+    using enovating.POT.MSW.Provider;
     using enovating.POT.MSW.Template;
 
     /// <summary>
@@ -31,6 +32,11 @@ namespace enovating.POT.MSW.Core
         ///     Gets the current context.
         /// </summary>
         public static ToolsContext Current { get; private set; }
+
+        /// <summary>
+        ///     Gets the patent provider.
+        /// </summary>
+        public OPSClient Provider { get; private set; }
 
         /// <summary>
         ///     Gets the user settings.
@@ -91,6 +97,7 @@ namespace enovating.POT.MSW.Core
         /// <inheritdoc />
         public void Dispose()
         {
+            Provider?.Dispose();
             Settings.Wrote -= OnSettingsChange;
         }
 
@@ -104,6 +111,7 @@ namespace enovating.POT.MSW.Core
                 return;
             }
 
+            Provider = new OPSClient(Settings.OPSConsumerKeys);
             TemplateManager = new TemplateManager(Settings.TemplateDirectory);
         }
 

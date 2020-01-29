@@ -33,6 +33,12 @@ namespace enovating.POT.MSW.Core
         public event EventHandler Wrote;
 
         /// <summary>
+        ///     Gets or sets the OPS consumer keys.
+        /// </summary>
+        [DataMember]
+        public string OPSConsumerKeys { get; set; }
+
+        /// <summary>
         ///     Gets the state.
         /// </summary>
         [IgnoreDataMember]
@@ -87,6 +93,11 @@ namespace enovating.POT.MSW.Core
             if (string.IsNullOrEmpty(TemplateDirectory))
             {
                 throw new ArgumentNullException(nameof(TemplateDirectory));
+            }
+
+            if (string.IsNullOrEmpty(OPSConsumerKeys))
+            {
+                throw new ArgumentNullException(nameof(OPSConsumerKeys));
             }
         }
 

@@ -32,11 +32,14 @@
             this._applyButton = new System.Windows.Forms.Button();
             this._templateDirectoryTitle = new System.Windows.Forms.Label();
             this._templateDirectoryTextBox = new System.Windows.Forms.TextBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this._opsConsumerKeys = new System.Windows.Forms.TextBox();
+            this._opsConsumerKeysTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // _cancelButton
             // 
-            this._cancelButton.Location = new System.Drawing.Point(713, 38);
+            this._cancelButton.Location = new System.Drawing.Point(713, 70);
             this._cancelButton.Name = "_cancelButton";
             this._cancelButton.Size = new System.Drawing.Size(75, 23);
             this._cancelButton.TabIndex = 0;
@@ -46,7 +49,7 @@
             // 
             // _applyButton
             // 
-            this._applyButton.Location = new System.Drawing.Point(632, 38);
+            this._applyButton.Location = new System.Drawing.Point(632, 70);
             this._applyButton.Name = "_applyButton";
             this._applyButton.Size = new System.Drawing.Size(75, 23);
             this._applyButton.TabIndex = 1;
@@ -66,18 +69,36 @@
             // _templateDirectoryTextBox
             // 
             this._templateDirectoryTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this._templateDirectoryTextBox.Location = new System.Drawing.Point(164, 6);
+            this._templateDirectoryTextBox.Location = new System.Drawing.Point(179, 6);
             this._templateDirectoryTextBox.Name = "_templateDirectoryTextBox";
             this._templateDirectoryTextBox.ReadOnly = true;
-            this._templateDirectoryTextBox.Size = new System.Drawing.Size(624, 26);
+            this._templateDirectoryTextBox.Size = new System.Drawing.Size(609, 26);
             this._templateDirectoryTextBox.TabIndex = 3;
             this._templateDirectoryTextBox.Click += new System.EventHandler(this.TemplateDirectoryTextBox_Click);
+            // 
+            // _opsConsumerKeys
+            // 
+            this._opsConsumerKeys.Location = new System.Drawing.Point(179, 38);
+            this._opsConsumerKeys.Name = "_opsConsumerKeys";
+            this._opsConsumerKeys.Size = new System.Drawing.Size(609, 26);
+            this._opsConsumerKeys.TabIndex = 5;
+            // 
+            // _opsConsumerKeysTitle
+            // 
+            this._opsConsumerKeysTitle.AutoSize = true;
+            this._opsConsumerKeysTitle.Location = new System.Drawing.Point(12, 41);
+            this._opsConsumerKeysTitle.Name = "_opsConsumerKeysTitle";
+            this._opsConsumerKeysTitle.Size = new System.Drawing.Size(161, 20);
+            this._opsConsumerKeysTitle.TabIndex = 4;
+            this._opsConsumerKeysTitle.Text = "OPS Consumer Keys:";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 73);
+            this.ClientSize = new System.Drawing.Size(800, 104);
+            this.Controls.Add(this._opsConsumerKeys);
+            this.Controls.Add(this._opsConsumerKeysTitle);
             this.Controls.Add(this._templateDirectoryTextBox);
             this.Controls.Add(this._templateDirectoryTitle);
             this.Controls.Add(this._applyButton);
@@ -101,5 +122,8 @@
         private System.Windows.Forms.Button _applyButton;
         private System.Windows.Forms.Label _templateDirectoryTitle;
         private System.Windows.Forms.TextBox _templateDirectoryTextBox;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.TextBox _opsConsumerKeys;
+        private System.Windows.Forms.Label _opsConsumerKeysTitle;
     }
 }

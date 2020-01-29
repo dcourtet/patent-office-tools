@@ -126,6 +126,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -183,9 +184,27 @@
     <Compile Include="Core\ToolsContext.cs" />
     <Compile Include="Core\UserSettings.cs" />
     <Compile Include="Models\Patent.cs" />
+    <Compile Include="Models\PatentNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Provider\Abstractions\IOPSError.cs" />
+    <Compile Include="Provider\Abstractions\IOPSResponse.cs" />
+    <Compile Include="Provider\Assemblers\Assembler.cs" />
+    <Compile Include="Provider\Assemblers\PatentAssembler.cs" />
+    <Compile Include="Provider\Exceptions\OPSAuthenticationException.cs" />
+    <Compile Include="Provider\Exceptions\OPSClientException.cs" />
+    <Compile Include="Provider\Exceptions\OPSSerializationException.cs" />
+    <Compile Include="Provider\Internals\AuthenticationError.cs" />
+    <Compile Include="Provider\Internals\OAuthToken.cs" />
+    <Compile Include="Provider\Internals\RequestManager.cs" />
+    <Compile Include="Provider\Internals\ServiceError.cs" />
+    <Compile Include="Provider\Internals\ServiceResponse.cs" />
+    <Compile Include="Provider\Models\ExchangeDocument.cs" />
+    <Compile Include="Provider\Models\WPD.cs" />
+    <Compile Include="Provider\OPSClient.cs" />
+    <Compile Include="Provider\OPSConstants.cs" />
+    <Compile Include="Provider\OPSConverter.cs" />
     <Compile Include="Ribbon.cs">
       <SubType>Component</SubType>
     </Compile>

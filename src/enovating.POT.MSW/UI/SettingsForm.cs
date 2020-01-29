@@ -75,6 +75,7 @@ namespace enovating.POT.MSW.UI
                 return;
             }
 
+            _opsConsumerKeys.Text = ToolsContext.Current.Settings.OPSConsumerKeys;
             _templateDirectoryTextBox.Text = ToolsContext.Current.Settings.TemplateDirectory;
         }
 
@@ -83,6 +84,7 @@ namespace enovating.POT.MSW.UI
         /// </summary>
         private void SetSettings()
         {
+            ToolsContext.Current.Settings.OPSConsumerKeys = _opsConsumerKeys.Text;
             ToolsContext.Current.Settings.TemplateDirectory = _templateDirectoryTextBox.Text;
         }
 
