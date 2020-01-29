@@ -19,6 +19,8 @@ namespace enovating.POT.MSW.Core
     using System;
     using System.IO;
 
+    using enovating.POT.MSW.Template;
+
     /// <summary>
     ///     Office Tools Context.
     /// </summary>
@@ -34,6 +36,11 @@ namespace enovating.POT.MSW.Core
         ///     Gets the user settings.
         /// </summary>
         public UserSettings Settings { get; }
+
+        /// <summary>
+        ///     Gets the template manager.
+        /// </summary>
+        public TemplateManager TemplateManager { get; private set; }
 
         /// <summary>
         ///     Gets the working directory.
@@ -92,7 +99,12 @@ namespace enovating.POT.MSW.Core
         /// </summary>
         private void InitializeComponents()
         {
-            // todo
+            if (!Settings.Ready)
+            {
+                return;
+            }
+
+            TemplateManager = new TemplateManager(Settings.TemplateDirectory);
         }
 
         /// <summary>

@@ -14,33 +14,38 @@
 // Copyright 2019-2020 enovating SA <https://www.enovating.com/>
 // -------------------------------------------------------------------------------------
 
-namespace enovating.POT.MSW.UI
+namespace enovating.POT.MSW.Template
 {
-    using System.Windows.Forms;
+    using System.IO;
 
-    using enovating.POT.MSW.Core;
-
-    /// <inheritdoc />
-    public partial class InsertForm : Form
+    /// <summary>
+    ///     Template reference.
+    /// </summary>
+    public class TemplateReference
     {
-        /// <inheritdoc />
-        public InsertForm()
-        {
-            InitializeComponent();
-            InitializeAvailableTemplates();
-        }
+        /// <summary>
+        ///     Gets the name.
+        /// </summary>
+        public string Name { get; }
 
         /// <summary>
-        ///     Initialize available templates.
+        ///     Gets the path.
         /// </summary>
-        private void InitializeAvailableTemplates()
-        {
-            if (ToolsContext.Current.TemplateManager.Available.Length == 0)
-            {
-                MessageBox.Show("No template is available.");
-            }
+        public string Path { get; }
 
-            _availableTemplates.DataSource = ToolsContext.Current.TemplateManager.Available;
+        /// <inheritdoc />
+        public TemplateReference(string path)
+        {
+            Path = path;
+
+            var fileInfo = new FileInfo(path);
+            Name = fileInfo.Name.Replace(".dotx", null);
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

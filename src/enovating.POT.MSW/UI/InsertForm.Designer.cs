@@ -28,13 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this._availableTemplates = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
+            // 
+            // _availableTemplates
+            // 
+            this._availableTemplates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._availableTemplates.FormattingEnabled = true;
+            this._availableTemplates.Location = new System.Drawing.Point(12, 12);
+            this._availableTemplates.Name = "_availableTemplates";
+            this._availableTemplates.Size = new System.Drawing.Size(776, 28);
+            this._availableTemplates.TabIndex = 0;
             // 
             // InsertForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._availableTemplates);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InsertForm";
@@ -47,5 +58,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.ComboBox _availableTemplates;
     }
 }
