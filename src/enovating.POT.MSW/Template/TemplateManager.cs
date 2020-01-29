@@ -20,6 +20,9 @@ namespace enovating.POT.MSW.Template
     using System.IO;
     using System.Linq;
 
+    using enovating.POT.MSW.Models;
+    using enovating.POT.MSW.Template.Writers;
+
     /// <summary>
     ///     Template manager.
     /// </summary>
@@ -55,6 +58,22 @@ namespace enovating.POT.MSW.Template
 
             var files = Directory.GetFiles(templateDirectory, _templatePattern);
             return files.Select(file => new TemplateReference(file)).ToArray();
+        }
+
+        /// <summary>
+        ///     Merge the template with the current document.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <param name="values">The values of the template.</param>
+        public void Merge(TemplateReference template, Patent[] values)
+        {
+            var writers = new IWriter<Patent>[] { };
+            var writingProcessor = new WritingProcessor(writers);
+
+            foreach (var value in values)
+            {
+                writingProcessor.Write(template, value);
+            }
         }
     }
 }
