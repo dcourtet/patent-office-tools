@@ -28,6 +28,11 @@ namespace enovating.POT.MSW.Core
     public class UserSettings
     {
         /// <summary>
+        ///     Event triggered when successfully writing settings.
+        /// </summary>
+        public event EventHandler Wrote;
+
+        /// <summary>
         ///     Gets the state.
         /// </summary>
         [IgnoreDataMember]
@@ -90,6 +95,8 @@ namespace enovating.POT.MSW.Core
                     var serializer = new DataContractJsonSerializer(typeof(UserSettings));
                     serializer.WriteObject(stream, this);
                 }
+
+                Wrote?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception exception)
             {

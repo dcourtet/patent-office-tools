@@ -22,7 +22,8 @@ namespace enovating.POT.MSW.Core
     /// <summary>
     ///     Office Tools Context.
     /// </summary>
-    public class ToolsContext
+    /// <seealso cref="IDisposable" />
+    public class ToolsContext : IDisposable
     {
         /// <summary>
         ///     Gets the current context.
@@ -30,14 +31,14 @@ namespace enovating.POT.MSW.Core
         public static ToolsContext Current { get; private set; }
 
         /// <summary>
+        ///     Gets the user settings.
+        /// </summary>
+        public UserSettings Settings { get; }
+
+        /// <summary>
         ///     Gets the working directory.
         /// </summary>
         public string WorkingDirectory { get; }
-
-        /// <summary>
-        /// Gets the user settings.
-        /// </summary>
-        public UserSettings Settings { get; }
 
         /// <inheritdoc />
         private ToolsContext(string workingDirectory)
@@ -52,6 +53,18 @@ namespace enovating.POT.MSW.Core
 
             var settingsTarget = Path.Combine(WorkingDirectory, "settings.json");
             Settings = UserSettings.Initialize(settingsTarget);
+            Settings.Wrote += OnSettingsChange;
+
+            InitializeComponents();
+        }
+
+        /// <summary>
+        ///     Destroy the current context.
+        /// </summary>
+        public static void Destroy()
+        {
+            Current?.Dispose();
+            Current = null;
         }
 
         /// <summary>
@@ -66,6 +79,30 @@ namespace enovating.POT.MSW.Core
             }
 
             Current = new ToolsContext(workingDirectory);
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Settings.Wrote -= OnSettingsChange;
+        }
+
+        /// <summary>
+        ///     Initialize context components.
+        /// </summary>
+        private void InitializeComponents()
+        {
+            // todo
+        }
+
+        /// <summary>
+        ///     When settings change.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event argument.</param>
+        private void OnSettingsChange(object sender, EventArgs e)
+        {
+            InitializeComponents();
         }
     }
 }

@@ -18,6 +18,8 @@ namespace enovating.POT.MSW
 {
     using System;
     using System.IO;
+    using System.Windows.Forms;
+
     using enovating.POT.MSW.Core;
 
     /// <summary>
@@ -31,14 +33,24 @@ namespace enovating.POT.MSW
             Shutdown += ThisAddIn_Shutdown;
         }
 
-        private void ThisAddIn_Shutdown(object sender, EventArgs e) { }
+        private void ThisAddIn_Shutdown(object sender, EventArgs e)
+        {
+            ToolsContext.Destroy();
+        }
 
         private void ThisAddIn_Startup(object sender, EventArgs e)
         {
             var rootDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var workingDirectory = Path.Combine(rootDirectory, "enovating", "patent-office-tools");
 
-            ToolsContext.Initialize(workingDirectory);
+            try
+            {
+                ToolsContext.Initialize(workingDirectory);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Fatal error during module initialization: " + exception.Message, "Patent Office Tools");
+            }
         }
     }
 }
