@@ -55,7 +55,7 @@ namespace enovating.POT.MSW.Provider
         /// <param name="number">The publication number.</param>
         /// <param name="cancellationToken">The cancellation notification.</param>
         /// <returns>The patent document corresponding to the publication number.</returns>
-        public async Task<Patent> Retrieve(PatentNumber number, CancellationToken cancellationToken)
+        public async Task<Patent> Retrieve(PatentNumber number, CancellationToken cancellationToken = default)
         {
             if (number == null)
             {

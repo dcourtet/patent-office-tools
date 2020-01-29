@@ -16,9 +16,15 @@
 
 namespace enovating.POT.MSW.UI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     using enovating.POT.MSW.Core;
+    using enovating.POT.MSW.Models;
+    using enovating.POT.MSW.Template;
 
     /// <inheritdoc />
     public partial class InsertForm : Form
@@ -30,9 +36,17 @@ namespace enovating.POT.MSW.UI
             InitializeAvailableTemplates();
         }
 
-        /// <summary>
-        ///     Initialize available templates.
-        /// </summary>
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private PatentNumber[] ExtractNumbers(string input)
+        {
+            return input.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(PatentNumber.Parse).Distinct(new PatentNumberComparer()).ToArray();
+        }
+
         private void InitializeAvailableTemplates()
         {
             if (ToolsContext.Current.TemplateManager.Available.Length == 0)
@@ -40,7 +54,102 @@ namespace enovating.POT.MSW.UI
                 MessageBox.Show("No template is available.");
             }
 
-            _availableTemplates.DataSource = ToolsContext.Current.TemplateManager.Available;
+            _templatesListBox.DataSource = ToolsContext.Current.TemplateManager.Available;
+        }
+
+        private async void InsertButton_Click(object sender, EventArgs e)
+        {
+            var numbers = ExtractNumbers(_numbersTextBox.Text);
+
+            if (numbers.Length == 0)
+            {
+                return;
+            }
+
+            SetControlsState(false, true, numbers.Length + 1);
+            var patents = await Retrieve(numbers);
+
+            if (patents.Length == 0)
+            {
+                return;
+            }
+
+            var template = (TemplateReference) _templatesListBox.SelectedItem;
+            UpdateProgression($"merging template {template.Name}");
+            ToolsContext.Current.TemplateManager.Merge(template, patents);
+
+            await Task.Delay(750);
+            Close();
+        }
+
+        private async void PreviewButton_Click(object sender, EventArgs e)
+        {
+            var numbers = ExtractNumbers(_numbersTextBox.Text);
+
+            if (numbers.Length == 0)
+            {
+                return;
+            }
+
+            SetControlsState(false, true, numbers.Length);
+            await Retrieve(numbers);
+            SetControlsState(true, false);
+        }
+
+        private async Task<Patent[]> Retrieve(PatentNumber[] numbers)
+        {
+            if (numbers.Length == 0)
+            {
+                return new Patent[0];
+            }
+
+            _previewListBox.Items.Clear();
+            var results = new List<Patent>();
+
+            foreach (var number in numbers)
+            {
+                try
+                {
+                    UpdateProgression(number.ToString());
+
+                    var patent = await ToolsContext.Current.Provider.Retrieve(number);
+
+                    var patentTitle = patent.ToString();
+                    _previewListBox.Items.Add(patentTitle);
+
+                    results.Add(patent);
+                }
+                catch
+                {
+                    MessageBox.Show($"{number} is not available", "Patent Office Tools");
+                }
+            }
+
+            return results.ToArray();
+        }
+
+        private void SetControlsState(bool enabled, bool reset, int maximum = 0)
+        {
+            _progressBar.Maximum = maximum;
+
+            if (reset)
+            {
+                _progressBar.Value = 0;
+                _previewListBox.Items.Clear();
+            }
+
+            _cancelButton.Enabled = enabled;
+            _insertButton.Enabled = enabled;
+            _numbersTextBox.Enabled = enabled;
+            _previewButton.Enabled = enabled;
+            _previewListBox.Enabled = enabled;
+            _templatesListBox.Enabled = enabled;
+        }
+
+        private void UpdateProgression(string text)
+        {
+            _progressBar.PerformStep();
+            _progressLabel.Text = text;
         }
     }
 }

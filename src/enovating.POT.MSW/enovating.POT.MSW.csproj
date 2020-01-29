@@ -185,8 +185,14 @@
     <Compile Include="Core\UserSettings.cs" />
     <Compile Include="Models\Patent.cs" />
     <Compile Include="Models\PatentNumber.cs" />
+    <Compile Include="Models\PatentNumberComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Provider\Abstractions\IOPSError.cs" />
     <Compile Include="Provider\Abstractions\IOPSResponse.cs" />
@@ -239,6 +245,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ribbon.resx">
       <DependentUpon>Ribbon.cs</DependentUpon>
     </EmbeddedResource>
