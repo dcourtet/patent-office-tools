@@ -16,6 +16,9 @@
 
 namespace enovating.POT.MSW.Models
 {
+    using System;
+    using System.Text.RegularExpressions;
+
     /// <summary>
     ///     Represents a patent number.
     /// </summary>
@@ -24,25 +27,28 @@ namespace enovating.POT.MSW.Models
         /// <summary>
         ///     Gets the country code.
         /// </summary>
-        public string C { get; }
+        public string C { get; private set; }
 
         /// <summary>
         ///     Gets the kind code.
         /// </summary>
-        public string K { get; }
+        public string K { get; private set; }
 
         /// <summary>
         ///     Gets the document number.
         /// </summary>
-        public string N { get; }
+        public string N { get; private set; }
 
         /// <inheritdoc />
         public PatentNumber(string c, string n, string k = null)
         {
-            C = c;
-            N = n;
+            C = c ?? throw new ArgumentNullException(nameof(c));
+            N = n ?? throw new ArgumentNullException(nameof(n));
             K = k;
         }
+
+        /// <inheritdoc />
+        private PatentNumber() { }
 
         /// <summary>
         ///     Parses the input to a patent number.
@@ -51,8 +57,39 @@ namespace enovating.POT.MSW.Models
         /// <returns>The patent number.</returns>
         public static PatentNumber Parse(string input)
         {
-            var array = input.Split('.');
-            return new PatentNumber(array[0], array[1], array[2]);
+            if (string.IsNullOrEmpty(input))
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            // first clean
+            input = input.ToUpper().Trim();
+
+            // remove non alphanumeric characters
+            var regex = new Regex("[^a-zA-Z0-9]");
+            input = regex.Replace(input, string.Empty);
+
+            // validation
+            if (input.Length <= 3)
+            {
+                throw new ArgumentException("number is too short");
+            }
+
+            var result = new PatentNumber();
+            var size = input.Length;
+
+            // country code
+            result.C = input.Substring(0, 2);
+
+            // kind code
+            result.K = char.IsLetter(input[size - 2])
+                ? string.Concat(input[size - 2], input[size - 1])
+                : string.Concat(input[size - 1]);
+
+            // document number
+            result.N = input.Substring(result.C.Length, size - result.C.Length - result.K.Length);
+
+            return result;
         }
 
         /// <summary>
