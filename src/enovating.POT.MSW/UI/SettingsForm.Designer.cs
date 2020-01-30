@@ -39,9 +39,9 @@
             // 
             // _cancelButton
             // 
-            this._cancelButton.Location = new System.Drawing.Point(713, 70);
+            this._cancelButton.Location = new System.Drawing.Point(715, 86);
             this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(75, 23);
+            this._cancelButton.Size = new System.Drawing.Size(150, 35);
             this._cancelButton.TabIndex = 0;
             this._cancelButton.Text = "Cancel";
             this._cancelButton.UseVisualStyleBackColor = true;
@@ -49,9 +49,9 @@
             // 
             // _applyButton
             // 
-            this._applyButton.Location = new System.Drawing.Point(632, 70);
+            this._applyButton.Location = new System.Drawing.Point(559, 86);
             this._applyButton.Name = "_applyButton";
-            this._applyButton.Size = new System.Drawing.Size(75, 23);
+            this._applyButton.Size = new System.Drawing.Size(150, 35);
             this._applyButton.TabIndex = 1;
             this._applyButton.Text = "Apply";
             this._applyButton.UseVisualStyleBackColor = true;
@@ -60,7 +60,7 @@
             // _templateDirectoryTitle
             // 
             this._templateDirectoryTitle.AutoSize = true;
-            this._templateDirectoryTitle.Location = new System.Drawing.Point(12, 9);
+            this._templateDirectoryTitle.Location = new System.Drawing.Point(28, 57);
             this._templateDirectoryTitle.Name = "_templateDirectoryTitle";
             this._templateDirectoryTitle.Size = new System.Drawing.Size(146, 20);
             this._templateDirectoryTitle.TabIndex = 2;
@@ -69,24 +69,24 @@
             // _templateDirectoryTextBox
             // 
             this._templateDirectoryTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this._templateDirectoryTextBox.Location = new System.Drawing.Point(179, 6);
+            this._templateDirectoryTextBox.Location = new System.Drawing.Point(195, 54);
             this._templateDirectoryTextBox.Name = "_templateDirectoryTextBox";
             this._templateDirectoryTextBox.ReadOnly = true;
-            this._templateDirectoryTextBox.Size = new System.Drawing.Size(609, 26);
+            this._templateDirectoryTextBox.Size = new System.Drawing.Size(670, 26);
             this._templateDirectoryTextBox.TabIndex = 3;
             this._templateDirectoryTextBox.Click += new System.EventHandler(this.TemplateDirectoryTextBox_Click);
             // 
             // _opsConsumerKeys
             // 
-            this._opsConsumerKeys.Location = new System.Drawing.Point(179, 38);
+            this._opsConsumerKeys.Location = new System.Drawing.Point(195, 22);
             this._opsConsumerKeys.Name = "_opsConsumerKeys";
-            this._opsConsumerKeys.Size = new System.Drawing.Size(609, 26);
+            this._opsConsumerKeys.Size = new System.Drawing.Size(670, 26);
             this._opsConsumerKeys.TabIndex = 5;
             // 
             // _opsConsumerKeysTitle
             // 
             this._opsConsumerKeysTitle.AutoSize = true;
-            this._opsConsumerKeysTitle.Location = new System.Drawing.Point(12, 41);
+            this._opsConsumerKeysTitle.Location = new System.Drawing.Point(28, 25);
             this._opsConsumerKeysTitle.Name = "_opsConsumerKeysTitle";
             this._opsConsumerKeysTitle.Size = new System.Drawing.Size(161, 20);
             this._opsConsumerKeysTitle.TabIndex = 4;
@@ -96,7 +96,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 104);
+            this.ClientSize = new System.Drawing.Size(893, 149);
             this.Controls.Add(this._opsConsumerKeys);
             this.Controls.Add(this._opsConsumerKeysTitle);
             this.Controls.Add(this._templateDirectoryTextBox);
@@ -107,6 +107,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
+            this.Padding = new System.Windows.Forms.Padding(25);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
