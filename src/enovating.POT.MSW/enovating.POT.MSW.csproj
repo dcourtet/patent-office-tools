@@ -185,6 +185,7 @@
     <Compile Include="Core\UserSettings.cs" />
     <Compile Include="Models\PatentFamilyMember.cs" />
     <Compile Include="Models\Patent.cs" />
+    <Compile Include="Models\PatentLinks.cs" />
     <Compile Include="Models\PatentNumber.cs" />
     <Compile Include="Models\PatentNumberComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -238,6 +239,7 @@
     <Compile Include="Template\TemplateReference.cs" />
     <Compile Include="Template\Writers\FamilyWriter.cs" />
     <Compile Include="Template\Writers\IWriter.cs" />
+    <Compile Include="Template\Writers\LinkWriter.cs" />
     <Compile Include="Template\Writers\PictureWriter.cs" />
     <Compile Include="Template\Writers\SimpleTextWriter.cs" />
     <Compile Include="Template\WritingProcessor.cs" />

@@ -64,6 +64,11 @@ namespace enovating.POT.MSW.Models
         public string[] IPC { get; set; }
 
         /// <summary>
+        ///     Gets the external links.
+        /// </summary>
+        public PatentLinks Links => new PatentLinks(PublicationNumber);
+
+        /// <summary>
         ///     Gets or sets the picture content.
         /// </summary>
         public byte[] Picture { get; set; }
