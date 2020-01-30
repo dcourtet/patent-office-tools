@@ -26,6 +26,10 @@ namespace enovating.POT.MSW.UI
     using enovating.POT.MSW.Models;
     using enovating.POT.MSW.Template;
 
+    using Microsoft.Office.Interop.Word;
+
+    using Task = System.Threading.Tasks.Task;
+
     /// <inheritdoc />
     public partial class InsertForm : Form
     {
@@ -33,7 +37,6 @@ namespace enovating.POT.MSW.UI
         public InsertForm()
         {
             InitializeComponent();
-            InitializeSource();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -41,137 +44,152 @@ namespace enovating.POT.MSW.UI
             Close();
         }
 
-        private PatentNumber[] ExtractNumbers(string input)
-        {
-            return input.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
-                        .Select(PatentNumber.Parse).Distinct(new PatentNumberComparer()).ToArray();
-        }
-
-        private void InitializeSource()
-        {
-            if (ToolsContext.Current.TemplateManager.Available.Length == 0)
-            {
-                MessageBox.Show("No template is available.");
-            }
-
-            _templatesListBox.DataSource = ToolsContext.Current.TemplateManager.Available;
-            _templatesListBox.SelectedItem = 0;
-
-            _directionListBox.SelectedIndex = 0;
-        }
-
         private async void InsertButton_Click(object sender, EventArgs e)
         {
-            var numbers = ExtractNumbers(_numbersTextBox.Text);
+            SetUIState(false);
 
-            if (numbers.Length == 0)
+            var patents = await Retrieve(1);
+
+            if (patents.Length != 0)
             {
-                return;
+                await Merge(patents);
             }
 
-            SetControlsState(false, true, numbers.Length + 1);
-            var patents = await Retrieve(numbers);
+            SetUIState(true);
+            Close();
+        }
 
-            if (patents.Length == 0)
+        private void InsertForm_Load(object sender, EventArgs e)
+        {
+            if (ToolsContext.Current.TemplateManager.Available.Length != 0)
             {
-                return;
+                // sort directions
+                _directionListBox.SelectedIndex = 0;
+                // templates
+                _templatesListBox.DataSource = ToolsContext.Current.TemplateManager.Available;
+                _templatesListBox.SelectedItem = 0;
             }
+            else
+            {
+                MessageBox.Show("No template is available.");
+                Close();
+            }
+        }
+
+        private async Task Merge(Patent[] values)
+        {
+            await UpdateProgression("merging template", 150);
 
             switch (_directionListBox.Text.Substring(0, 2))
             {
                 case "02":
-                    patents = patents.OrderBy(x => x.Title).ToArray();
+                    values = values.OrderBy(x => x.Title).ToArray();
                     break;
                 case "03":
-                    patents = patents.OrderBy(x => x.PublicationDate).ToArray();
+                    values = values.OrderBy(x => x.PublicationDate).ToArray();
                     break;
                 case "04":
-                    patents = patents.OrderByDescending(x => x.PublicationDate).ToArray();
+                    values = values.OrderByDescending(x => x.PublicationDate).ToArray();
                     break;
                 case "05":
-                    patents = patents.OrderBy(x => x.PublicationNumber?.C).ToArray();
+                    values = values.OrderBy(x => x.PublicationNumber?.C).ToArray();
                     break;
             }
 
             var template = (TemplateReference) _templatesListBox.SelectedItem;
+            ToolsContext.Current.TemplateManager.Merge(template, values);
 
-            _progressLabel.Text = $"merging template {template.Name}";
-            ToolsContext.Current.TemplateManager.Merge(template, patents);
-
-            await Task.Delay(500);
-            _progressBar.PerformStep();
-            await Task.Delay(150);
-            
-            Cursor.Current = Cursors.Default;
-
-            Close();
+            await UpdateProgression(2500);
         }
 
         private async void PreviewButton_Click(object sender, EventArgs e)
         {
-            var numbers = ExtractNumbers(_numbersTextBox.Text);
-
-            if (numbers.Length == 0)
-            {
-                return;
-            }
-
-            SetControlsState(false, true, numbers.Length);
-            await Retrieve(numbers);
-            SetControlsState(true, false);
+            SetUIState(false);
+            await Retrieve();
+            SetUIState(true);
         }
 
-        private async Task<Patent[]> Retrieve(IReadOnlyCollection<PatentNumber> numbers)
+        private async Task<Patent[]> Retrieve(int offset = 0)
         {
-            if (numbers.Count == 0)
+            var lines = _numbersTextBox.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (lines.Length == 0)
             {
                 return new Patent[0];
             }
 
             _previewListBox.Items.Clear();
+
+            _progressBar.Maximum = lines.Length + offset;
+            _progressLabel.Text = "parsing numbers";
+
+            var output = new List<string>();
             var results = new List<Patent>();
 
-            foreach (var number in numbers)
+            foreach (var line in lines)
             {
                 try
                 {
-                    _progressLabel.Text = number.Format('.');
+                    var number = PatentNumber.Parse(line);
+
+                    await UpdateProgression(number.ToString());
 
                     var patent = await ToolsContext.Current.Provider.Retrieve(number);
                     var patentTitle = string.Concat(number, '\t', patent.Title.ToUpper());
 
                     _previewListBox.Items.Add(patentTitle);
-                    _progressBar.PerformStep();
-                    
+
+                    output.Add(number.ToString());
                     results.Add(patent);
                 }
                 catch
                 {
-                    MessageBox.Show($"{number} is not available", "Patent Office Tools");
+                    if (!line.StartsWith("*"))
+                    {
+                        output.Add(string.Concat("*", line));
+                    }
+                }
+                finally
+                {
+                    await UpdateProgression();
                 }
             }
 
+            _numbersTextBox.Text = string.Join(Environment.NewLine, output);
             return results.ToArray();
         }
 
-        private void SetControlsState(bool enabled, bool reset, int maximum = 0)
+        private void SetUIState(bool state)
         {
-            _progressBar.Maximum = maximum;
-
-            if (reset)
+            if (state)
             {
                 _progressBar.Value = 0;
-                _previewListBox.Items.Clear();
+                _progressLabel.Text = null;
             }
 
-            _cancelButton.Enabled = enabled;
-            _insertButton.Enabled = enabled;
-            _numbersTextBox.Enabled = enabled;
-            _previewButton.Enabled = enabled;
-            _previewListBox.Enabled = enabled;
-            _templatesListBox.Enabled = enabled;
+            _cancelButton.Enabled = state;
+            _directionListBox.Enabled = state;
+            _insertButton.Enabled = state;
+            _numbersTextBox.Enabled = state;
+            _previewButton.Enabled = state;
+            _previewListBox.Enabled = state;
+            _templatesListBox.Enabled = state;
 
-            Cursor.Current = enabled ? Cursors.Default : Cursors.WaitCursor;
+            Globals.ThisAddIn.Application.System.Cursor = state
+                ? WdCursorType.wdCursorNormal
+                : WdCursorType.wdCursorWait;
+        }
+
+        private async Task UpdateProgression(string text, int delay = 0)
+        {
+            _progressLabel.Text = text;
+            await Task.Delay(delay);
+        }
+
+        private async Task UpdateProgression(int delay = 0)
+        {
+            _progressBar.PerformStep();
+            await Task.Delay(delay);
         }
     }
 }

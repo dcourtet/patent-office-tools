@@ -32,13 +32,13 @@ namespace enovating.POT.MSW.UI
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._progressLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._mainPanel = new System.Windows.Forms.Panel();
+            this._directionListBox = new System.Windows.Forms.ListBox();
             this._insertButton = new System.Windows.Forms.Button();
             this._cancelButton = new System.Windows.Forms.Button();
             this._templatesListBox = new System.Windows.Forms.ListBox();
             this._previewButton = new System.Windows.Forms.Button();
             this._previewListBox = new System.Windows.Forms.ListBox();
             this._numbersTextBox = new System.Windows.Forms.TextBox();
-            this._directionListBox = new System.Windows.Forms.ListBox();
             this._statusStrip.SuspendLayout();
             this._mainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +83,21 @@ namespace enovating.POT.MSW.UI
             this._mainPanel.Padding = new System.Windows.Forms.Padding(25);
             this._mainPanel.Size = new System.Drawing.Size(916, 599);
             this._mainPanel.TabIndex = 2;
+            // 
+            // _directionListBox
+            // 
+            this._directionListBox.FormattingEnabled = true;
+            this._directionListBox.ItemHeight = 20;
+            this._directionListBox.Items.AddRange(new object[] {
+            "01 - Default",
+            "02 - Title alphabetically",
+            "03 - Earliest publication",
+            "04 - Latest publication",
+            "05 - Country alphabetically"});
+            this._directionListBox.Location = new System.Drawing.Point(638, 334);
+            this._directionListBox.Name = "_directionListBox";
+            this._directionListBox.Size = new System.Drawing.Size(250, 204);
+            this._directionListBox.TabIndex = 6;
             // 
             // _insertButton
             // 
@@ -141,21 +156,6 @@ namespace enovating.POT.MSW.UI
             this._numbersTextBox.Size = new System.Drawing.Size(250, 264);
             this._numbersTextBox.TabIndex = 0;
             // 
-            // _directionListBox
-            // 
-            this._directionListBox.FormattingEnabled = true;
-            this._directionListBox.ItemHeight = 20;
-            this._directionListBox.Items.AddRange(new object[] {
-            "01 - Default",
-            "02 - Title alphabetically",
-            "03 - Earliest publication",
-            "04 - Latest publication",
-            "05 - Country alphabetically"});
-            this._directionListBox.Location = new System.Drawing.Point(638, 334);
-            this._directionListBox.Name = "_directionListBox";
-            this._directionListBox.Size = new System.Drawing.Size(250, 204);
-            this._directionListBox.TabIndex = 6;
-            // 
             // InsertForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -171,6 +171,7 @@ namespace enovating.POT.MSW.UI
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Insert - Patent Office Tools";
+            this.Load += new System.EventHandler(this.InsertForm_Load);
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
             this._mainPanel.ResumeLayout(false);
