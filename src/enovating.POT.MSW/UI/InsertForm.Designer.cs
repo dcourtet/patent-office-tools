@@ -127,6 +127,7 @@ namespace enovating.POT.MSW.UI
             this._previewListBox.ItemHeight = 20;
             this._previewListBox.Location = new System.Drawing.Point(284, 28);
             this._previewListBox.Name = "_previewListBox";
+            this._previewListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this._previewListBox.Size = new System.Drawing.Size(604, 264);
             this._previewListBox.TabIndex = 1;
             // 
