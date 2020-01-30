@@ -64,7 +64,8 @@ namespace enovating.POT.MSW.Provider
 
             var patentAssembler = new PatentAssembler();
 
-            var result = await _requestManager.Execute("published-data/publication/docdb/biblio", "application/xml", OPSConverter.ToWPD, number.ToString(), cancellationToken);
+            var content = number.Format('.');
+            var result = await _requestManager.Execute("published-data/publication/docdb/biblio", "application/xml", OPSConverter.ToWPD, content, cancellationToken);
 
             if (!result.Success && result.Content.ExchangeDocuments.Length != 0)
             {

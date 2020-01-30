@@ -16,8 +16,61 @@
 
 namespace enovating.POT.MSW.Models
 {
+    using System;
+
     /// <summary>
     ///     Represents a patent document.
     /// </summary>
-    public class Patent { }
+    public class Patent
+    {
+        /// <summary>
+        ///     Gets or sets the abstract.
+        /// </summary>
+        public string Abstract { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the applicants.
+        /// </summary>
+        public string[] Applicants { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the application date.
+        /// </summary>
+        public DateTime? ApplicationDate { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the application number.
+        /// </summary>
+        public PatentNumber ApplicationNumber { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the Cooperative Patent Classification (CPC).
+        /// </summary>
+        public string[] CPC { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the inventors.
+        /// </summary>
+        public string[] Inventors { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the International Patent Classification (IPC).
+        /// </summary>
+        public string[] IPC { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the publication date.
+        /// </summary>
+        public DateTime? PublicationDate { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the publication number.
+        /// </summary>
+        public PatentNumber PublicationNumber { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the title.
+        /// </summary>
+        public string Title { get; set; }
+    }
 }

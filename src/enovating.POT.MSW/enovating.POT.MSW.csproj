@@ -206,7 +206,20 @@
     <Compile Include="Provider\Internals\RequestManager.cs" />
     <Compile Include="Provider\Internals\ServiceError.cs" />
     <Compile Include="Provider\Internals\ServiceResponse.cs" />
+    <Compile Include="Provider\Models\Applicant.cs" />
+    <Compile Include="Provider\Models\ApplicationReference.cs" />
+    <Compile Include="Provider\Models\Bibliographic.cs" />
+    <Compile Include="Provider\Models\DocumentID.cs" />
     <Compile Include="Provider\Models\ExchangeDocument.cs" />
+    <Compile Include="Provider\Models\InternationalPatentClassificationR.cs" />
+    <Compile Include="Provider\Models\InventionAbstract.cs" />
+    <Compile Include="Provider\Models\InventionTitle.cs" />
+    <Compile Include="Provider\Models\Inventor.cs" />
+    <Compile Include="Provider\Models\Parties.cs" />
+    <Compile Include="Provider\Models\PartyName.cs" />
+    <Compile Include="Provider\Models\PatentClassification.cs" />
+    <Compile Include="Provider\Models\PatentClassificationScheme.cs" />
+    <Compile Include="Provider\Models\PublicationReference.cs" />
     <Compile Include="Provider\Models\WPD.cs" />
     <Compile Include="Provider\OPSClient.cs" />
     <Compile Include="Provider\OPSConstants.cs" />
@@ -220,6 +233,7 @@
     <Compile Include="Template\TemplateManager.cs" />
     <Compile Include="Template\TemplateReference.cs" />
     <Compile Include="Template\Writers\IWriter.cs" />
+    <Compile Include="Template\Writers\SimpleTextWriter.cs" />
     <Compile Include="Template\WritingProcessor.cs" />
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>

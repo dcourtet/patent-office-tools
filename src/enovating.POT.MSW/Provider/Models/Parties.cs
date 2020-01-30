@@ -18,12 +18,14 @@ namespace enovating.POT.MSW.Provider.Models
 {
     using System.Xml.Serialization;
 
-    public class ExchangeDocument
+    public class Parties
     {
-        [XmlElement("abstract")]
-        public InventionAbstract[] Abstracts { get; set; }
+        [XmlArray("applicants")]
+        [XmlArrayItem("applicant")]
+        public Applicant[] Applicants { get; set; }
 
-        [XmlElement("bibliographic-data")]
-        public Bibliographic Bibliographic { get; set; }
+        [XmlArray("inventors")]
+        [XmlArrayItem("inventor")]
+        public Inventor[] Inventors { get; set; }
     }
 }

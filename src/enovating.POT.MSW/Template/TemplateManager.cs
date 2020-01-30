@@ -67,7 +67,7 @@ namespace enovating.POT.MSW.Template
         /// <param name="values">The values of the template.</param>
         public void Merge(TemplateReference template, Patent[] values)
         {
-            var writers = new IWriter<Patent>[] { };
+            var writers = new IWriter<Patent>[] { new SimpleTextWriter() };
             var writingProcessor = new WritingProcessor(writers);
 
             foreach (var value in values)

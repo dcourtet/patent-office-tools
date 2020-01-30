@@ -17,6 +17,7 @@
 namespace enovating.POT.MSW.Provider
 {
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Text;
     using System.Xml.Serialization;
@@ -43,6 +44,28 @@ namespace enovating.POT.MSW.Provider
 
             var bytes = Encoding.UTF8.GetBytes(input);
             return Convert.ToBase64String(bytes);
+        }
+
+        /// <summary>
+        ///     Converts the input.
+        /// </summary>
+        /// <param name="input">The string input.</param>
+        /// <returns>The output.</returns>
+        public static DateTime? ToDateTime(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return null;
+            }
+
+            if (DateTime.TryParseExact(input, "yyyyMMdd", null, DateTimeStyles.AssumeUniversal, out var result))
+            {
+                // success
+                return result;
+            }
+
+            // failure
+            return null;
         }
 
         /// <summary>

@@ -55,10 +55,22 @@ namespace enovating.POT.MSW.Models
             return new PatentNumber(array[0], array[1], array[2]);
         }
 
+        /// <summary>
+        ///     Formats the number.
+        /// </summary>
+        /// <param name="separator">The separator.</param>
+        /// <returns>The number formated.</returns>
+        public string Format(char? separator = null)
+        {
+            return string.IsNullOrEmpty(K)
+                ? string.Concat(C, separator, N)
+                : string.Concat(C, separator, N, separator, K);
+        }
+
         /// <inheritdoc />
         public override string ToString()
         {
-            return string.IsNullOrEmpty(K) ? string.Concat(C, '.', N) : string.Concat(C, '.', N, '.', K);
+            return Format(' ');
         }
     }
 }
