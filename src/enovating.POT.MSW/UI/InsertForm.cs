@@ -33,7 +33,7 @@ namespace enovating.POT.MSW.UI
         public InsertForm()
         {
             InitializeComponent();
-            InitializeAvailableTemplates();
+            InitializeSource();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace enovating.POT.MSW.UI
                         .Select(PatentNumber.Parse).Distinct(new PatentNumberComparer()).ToArray();
         }
 
-        private void InitializeAvailableTemplates()
+        private void InitializeSource()
         {
             if (ToolsContext.Current.TemplateManager.Available.Length == 0)
             {
@@ -55,6 +55,9 @@ namespace enovating.POT.MSW.UI
             }
 
             _templatesListBox.DataSource = ToolsContext.Current.TemplateManager.Available;
+            _templatesListBox.SelectedItem = 0;
+
+            _directionListBox.SelectedIndex = 0;
         }
 
         private async void InsertButton_Click(object sender, EventArgs e)
@@ -72,6 +75,22 @@ namespace enovating.POT.MSW.UI
             if (patents.Length == 0)
             {
                 return;
+            }
+
+            switch (_directionListBox.Text.Substring(0, 2))
+            {
+                case "02":
+                    patents = patents.OrderBy(x => x.Title).ToArray();
+                    break;
+                case "03":
+                    patents = patents.OrderBy(x => x.PublicationDate).ToArray();
+                    break;
+                case "04":
+                    patents = patents.OrderByDescending(x => x.PublicationDate).ToArray();
+                    break;
+                case "05":
+                    patents = patents.OrderBy(x => x.PublicationNumber?.C).ToArray();
+                    break;
             }
 
             var template = (TemplateReference) _templatesListBox.SelectedItem;

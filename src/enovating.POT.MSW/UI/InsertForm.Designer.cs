@@ -38,6 +38,7 @@ namespace enovating.POT.MSW.UI
             this._previewButton = new System.Windows.Forms.Button();
             this._previewListBox = new System.Windows.Forms.ListBox();
             this._numbersTextBox = new System.Windows.Forms.TextBox();
+            this._directionListBox = new System.Windows.Forms.ListBox();
             this._statusStrip.SuspendLayout();
             this._mainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +70,7 @@ namespace enovating.POT.MSW.UI
             // 
             // _mainPanel
             // 
+            this._mainPanel.Controls.Add(this._directionListBox);
             this._mainPanel.Controls.Add(this._insertButton);
             this._mainPanel.Controls.Add(this._cancelButton);
             this._mainPanel.Controls.Add(this._templatesListBox);
@@ -108,7 +110,7 @@ namespace enovating.POT.MSW.UI
             this._templatesListBox.ItemHeight = 20;
             this._templatesListBox.Location = new System.Drawing.Point(28, 334);
             this._templatesListBox.Name = "_templatesListBox";
-            this._templatesListBox.Size = new System.Drawing.Size(860, 204);
+            this._templatesListBox.Size = new System.Drawing.Size(604, 204);
             this._templatesListBox.TabIndex = 3;
             // 
             // _previewButton
@@ -138,6 +140,21 @@ namespace enovating.POT.MSW.UI
             this._numbersTextBox.Name = "_numbersTextBox";
             this._numbersTextBox.Size = new System.Drawing.Size(250, 264);
             this._numbersTextBox.TabIndex = 0;
+            // 
+            // _directionListBox
+            // 
+            this._directionListBox.FormattingEnabled = true;
+            this._directionListBox.ItemHeight = 20;
+            this._directionListBox.Items.AddRange(new object[] {
+            "01 - Default",
+            "02 - Title alphabetically",
+            "03 - Earliest publication",
+            "04 - Latest publication",
+            "05 - Country alphabetically"});
+            this._directionListBox.Location = new System.Drawing.Point(638, 334);
+            this._directionListBox.Name = "_directionListBox";
+            this._directionListBox.Size = new System.Drawing.Size(250, 204);
+            this._directionListBox.TabIndex = 6;
             // 
             // InsertForm
             // 
@@ -174,5 +191,6 @@ namespace enovating.POT.MSW.UI
         private System.Windows.Forms.Button _cancelButton;
         private System.Windows.Forms.ListBox _templatesListBox;
         private System.Windows.Forms.ToolStripStatusLabel _progressLabel;
+        private System.Windows.Forms.ListBox _directionListBox;
     }
 }
