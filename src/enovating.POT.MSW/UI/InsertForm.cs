@@ -114,7 +114,7 @@ namespace enovating.POT.MSW.UI
 
                     var patent = await ToolsContext.Current.Provider.Retrieve(number);
 
-                    var patentTitle = patent.ToString();
+                    var patentTitle = string.Concat(number, '\t', patent.Title.ToUpper());
                     _previewListBox.Items.Add(patentTitle);
 
                     results.Add(patent);
