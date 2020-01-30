@@ -94,10 +94,16 @@ namespace enovating.POT.MSW.UI
             }
 
             var template = (TemplateReference) _templatesListBox.SelectedItem;
-            UpdateProgression($"merging template {template.Name}");
+
+            _progressLabel.Text = $"merging template {template.Name}";
             ToolsContext.Current.TemplateManager.Merge(template, patents);
 
-            await Task.Delay(750);
+            await Task.Delay(500);
+            _progressBar.PerformStep();
+            await Task.Delay(150);
+            
+            Cursor.Current = Cursors.Default;
+
             Close();
         }
 
@@ -115,9 +121,9 @@ namespace enovating.POT.MSW.UI
             SetControlsState(true, false);
         }
 
-        private async Task<Patent[]> Retrieve(PatentNumber[] numbers)
+        private async Task<Patent[]> Retrieve(IReadOnlyCollection<PatentNumber> numbers)
         {
-            if (numbers.Length == 0)
+            if (numbers.Count == 0)
             {
                 return new Patent[0];
             }
@@ -129,13 +135,14 @@ namespace enovating.POT.MSW.UI
             {
                 try
                 {
-                    UpdateProgression(number.ToString());
+                    _progressLabel.Text = number.Format('.');
 
                     var patent = await ToolsContext.Current.Provider.Retrieve(number);
-
                     var patentTitle = string.Concat(number, '\t', patent.Title.ToUpper());
-                    _previewListBox.Items.Add(patentTitle);
 
+                    _previewListBox.Items.Add(patentTitle);
+                    _progressBar.PerformStep();
+                    
                     results.Add(patent);
                 }
                 catch
@@ -163,12 +170,8 @@ namespace enovating.POT.MSW.UI
             _previewButton.Enabled = enabled;
             _previewListBox.Enabled = enabled;
             _templatesListBox.Enabled = enabled;
-        }
 
-        private void UpdateProgression(string text)
-        {
-            _progressBar.PerformStep();
-            _progressLabel.Text = text;
+            Cursor.Current = enabled ? Cursors.Default : Cursors.WaitCursor;
         }
     }
 }
