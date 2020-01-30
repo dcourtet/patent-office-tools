@@ -14,21 +14,33 @@
 // Copyright 2019-2020 enovating SA <https://www.enovating.com/>
 // -------------------------------------------------------------------------------------
 
-namespace enovating.POT.MSW.Provider.Models
+namespace enovating.POT.MSW.Models
 {
-    using System.Xml.Serialization;
+    using System;
 
     /// <summary>
-    ///     OPS: WORLD PATENT DATA
+    ///     Represents a patent family member.
     /// </summary>
-    [XmlRoot("world-patent-data", Namespace = OPSConstants.XML.OPS)]
-    public class WPD
+    public class PatentFamilyMember
     {
-        [XmlArray("exchange-documents", Namespace = OPSConstants.XML.Exchange)]
-        [XmlArrayItem("exchange-document", Namespace = OPSConstants.XML.Exchange)]
-        public ExchangeDocument[] ExchangeDocuments { get; set; }
+        /// <summary>
+        ///     Gets or sets the application date.
+        /// </summary>
+        public DateTime? ApplicationDate { get; set; }
 
-        [XmlElement("patent-family", Namespace = OPSConstants.XML.OPS)]
-        public PatentFamily PatentFamily { get; set; }
+        /// <summary>
+        ///     Gets or sets the application number.
+        /// </summary>
+        public PatentNumber ApplicationNumber { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the publication date.
+        /// </summary>
+        public DateTime? PublicationDate { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the publication number.
+        /// </summary>
+        public PatentNumber PublicationNumber { get; set; }
     }
 }

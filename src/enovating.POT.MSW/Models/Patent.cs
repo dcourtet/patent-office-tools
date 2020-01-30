@@ -49,6 +49,11 @@ namespace enovating.POT.MSW.Models
         public string[] CPC { get; set; }
 
         /// <summary>
+        ///     Gets or sets the family members.
+        /// </summary>
+        public PatentFamilyMember[] Family { get; set; }
+
+        /// <summary>
         ///     Gets or sets the inventors.
         /// </summary>
         public string[] Inventors { get; set; }

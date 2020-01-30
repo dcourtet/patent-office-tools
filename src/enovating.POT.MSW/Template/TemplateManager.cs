@@ -17,6 +17,7 @@
 namespace enovating.POT.MSW.Template
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
@@ -65,9 +66,9 @@ namespace enovating.POT.MSW.Template
         /// </summary>
         /// <param name="template">The template.</param>
         /// <param name="values">The values of the template.</param>
-        public void Merge(TemplateReference template, Patent[] values)
+        public void Merge(TemplateReference template, IEnumerable<Patent> values)
         {
-            var writers = new IWriter<Patent>[] { new PictureWriter(), new SimpleTextWriter() };
+            var writers = new IWriter<Patent>[] { new FamilyWriter(), new PictureWriter(), new SimpleTextWriter() };
             var writingProcessor = new WritingProcessor(writers);
 
             foreach (var value in values)

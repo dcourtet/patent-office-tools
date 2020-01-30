@@ -73,8 +73,31 @@ namespace enovating.POT.MSW.Provider
             }
 
             var patent = patentAssembler.Convert(result.Content.ExchangeDocuments[0]);
+
+            patent.Family = await RetrieveFamily(number, cancellationToken);
             patent.Picture = await RetrieveFirstPicture(number, cancellationToken);
+
             return patent;
+        }
+
+        /// <summary>
+        ///     Retrieves all the family members of the document.
+        /// </summary>
+        /// <param name="number">The publication number.</param>
+        /// <param name="cancellationToken">The cancellation notification.</param>
+        /// <returns>The family members of the document.</returns>
+        private async Task<PatentFamilyMember[]> RetrieveFamily(PatentNumber number, CancellationToken cancellationToken)
+        {
+            var content = number.Format('.');
+            var result = await _requestManager.Execute("family/publication/docdb", OPSConstants.Format.Exchange, OPSConverter.ToWPD, content, cancellationToken);
+
+            if (!result.Success || result.Content.PatentFamily == null)
+            {
+                throw new InvalidOperationException($"cannot retrieve family members for {number}: ${result.Error.Code}");
+            }
+
+            var patentFamilyMemberAssembler = new PatentFamilyMemberAssembler();
+            return patentFamilyMemberAssembler.Convert(result.Content.PatentFamily.FamilyMembers);
         }
 
         /// <summary>

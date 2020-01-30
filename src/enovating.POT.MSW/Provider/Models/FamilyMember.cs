@@ -18,17 +18,12 @@ namespace enovating.POT.MSW.Provider.Models
 {
     using System.Xml.Serialization;
 
-    /// <summary>
-    ///     OPS: WORLD PATENT DATA
-    /// </summary>
-    [XmlRoot("world-patent-data", Namespace = OPSConstants.XML.OPS)]
-    public class WPD
+    public class FamilyMember
     {
-        [XmlArray("exchange-documents", Namespace = OPSConstants.XML.Exchange)]
-        [XmlArrayItem("exchange-document", Namespace = OPSConstants.XML.Exchange)]
-        public ExchangeDocument[] ExchangeDocuments { get; set; }
+        [XmlElement("application-reference", Namespace = OPSConstants.XML.Exchange)]
+        public ApplicationReference ApplicationReference { get; set; }
 
-        [XmlElement("patent-family", Namespace = OPSConstants.XML.OPS)]
-        public PatentFamily PatentFamily { get; set; }
+        [XmlElement("publication-reference", Namespace = OPSConstants.XML.Exchange)]
+        public PublicationReference PublicationReference { get; set; }
     }
 }

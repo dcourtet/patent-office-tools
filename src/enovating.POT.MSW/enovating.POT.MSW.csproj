@@ -183,6 +183,7 @@
   <ItemGroup>
     <Compile Include="Core\ToolsContext.cs" />
     <Compile Include="Core\UserSettings.cs" />
+    <Compile Include="Models\PatentFamilyMember.cs" />
     <Compile Include="Models\Patent.cs" />
     <Compile Include="Models\PatentNumber.cs" />
     <Compile Include="Models\PatentNumberComparer.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Provider\Abstractions\IOPSResponse.cs" />
     <Compile Include="Provider\Assemblers\Assembler.cs" />
     <Compile Include="Provider\Assemblers\PatentAssembler.cs" />
+    <Compile Include="Provider\Assemblers\PatentFamilyMemberAssembler.cs" />
     <Compile Include="Provider\Exceptions\OPSAuthenticationException.cs" />
     <Compile Include="Provider\Exceptions\OPSClientException.cs" />
     <Compile Include="Provider\Exceptions\OPSSerializationException.cs" />
@@ -211,6 +213,7 @@
     <Compile Include="Provider\Models\Bibliographic.cs" />
     <Compile Include="Provider\Models\DocumentID.cs" />
     <Compile Include="Provider\Models\ExchangeDocument.cs" />
+    <Compile Include="Provider\Models\FamilyMember.cs" />
     <Compile Include="Provider\Models\InternationalPatentClassificationR.cs" />
     <Compile Include="Provider\Models\InventionAbstract.cs" />
     <Compile Include="Provider\Models\InventionTitle.cs" />
@@ -219,6 +222,7 @@
     <Compile Include="Provider\Models\PartyName.cs" />
     <Compile Include="Provider\Models\PatentClassification.cs" />
     <Compile Include="Provider\Models\PatentClassificationScheme.cs" />
+    <Compile Include="Provider\Models\PatentFamily.cs" />
     <Compile Include="Provider\Models\PublicationReference.cs" />
     <Compile Include="Provider\Models\WPD.cs" />
     <Compile Include="Provider\OPSClient.cs" />
@@ -232,6 +236,7 @@
     </Compile>
     <Compile Include="Template\TemplateManager.cs" />
     <Compile Include="Template\TemplateReference.cs" />
+    <Compile Include="Template\Writers\FamilyWriter.cs" />
     <Compile Include="Template\Writers\IWriter.cs" />
     <Compile Include="Template\Writers\PictureWriter.cs" />
     <Compile Include="Template\Writers\SimpleTextWriter.cs" />
