@@ -59,6 +59,11 @@ namespace enovating.POT.MSW.Models
         public string[] IPC { get; set; }
 
         /// <summary>
+        ///     Gets or sets the picture content.
+        /// </summary>
+        public byte[] Picture { get; set; }
+
+        /// <summary>
         ///     Gets or sets the publication date.
         /// </summary>
         public DateTime? PublicationDate { get; set; }

@@ -47,6 +47,25 @@ namespace enovating.POT.MSW.Provider
         }
 
         /// <summary>
+        ///     Converts the input to a byte array.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>The byte array.</returns>
+        public static byte[] ToByteArray(Stream input)
+        {
+            if (input == null)
+            {
+                return null;
+            }
+
+            using (var memoryStream = new MemoryStream())
+            {
+                input.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
+
+        /// <summary>
         ///     Converts the input.
         /// </summary>
         /// <param name="input">The string input.</param>

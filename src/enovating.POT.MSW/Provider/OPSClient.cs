@@ -65,14 +65,29 @@ namespace enovating.POT.MSW.Provider
             var patentAssembler = new PatentAssembler();
 
             var content = number.Format('.');
-            var result = await _requestManager.Execute("published-data/publication/docdb/biblio", "application/xml", OPSConverter.ToWPD, content, cancellationToken);
+            var result = await _requestManager.Execute("published-data/publication/docdb/biblio", OPSConstants.Format.Exchange, OPSConverter.ToWPD, content, cancellationToken);
 
             if (!result.Success && result.Content.ExchangeDocuments.Length != 0)
             {
                 throw new InvalidOperationException($"cannot retrieve root document for {number}: ${result.Error.Code}");
             }
 
-            return patentAssembler.Convert(result.Content.ExchangeDocuments[0]);
+            var patent = patentAssembler.Convert(result.Content.ExchangeDocuments[0]);
+            patent.Picture = await RetrieveFirstPicture(number, cancellationToken);
+            return patent;
+        }
+
+        /// <summary>
+        ///     Retrieves the first picture of the document.
+        /// </summary>
+        /// <param name="number">The publication number.</param>
+        /// <param name="cancellationToken">The cancellation notification.</param>
+        /// <returns>The first picture of the document.</returns>
+        private async Task<byte[]> RetrieveFirstPicture(PatentNumber number, CancellationToken cancellationToken)
+        {
+            var target = $"published-data/images/{number.C}/{number.N}/PA/firstpage";
+            var result = await _requestManager.Execute(target, OPSConstants.Format.Picture, OPSConverter.ToByteArray, null, cancellationToken);
+            return result.Success && result.Content?.Length > 0 ? result.Content : null;
         }
     }
 }

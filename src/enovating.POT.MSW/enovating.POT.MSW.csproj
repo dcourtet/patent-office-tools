@@ -233,6 +233,7 @@
     <Compile Include="Template\TemplateManager.cs" />
     <Compile Include="Template\TemplateReference.cs" />
     <Compile Include="Template\Writers\IWriter.cs" />
+    <Compile Include="Template\Writers\PictureWriter.cs" />
     <Compile Include="Template\Writers\SimpleTextWriter.cs" />
     <Compile Include="Template\WritingProcessor.cs" />
     <Compile Include="ThisAddIn.cs">

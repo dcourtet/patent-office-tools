@@ -37,6 +37,22 @@ namespace enovating.POT.MSW.Provider
         public const string Version = "3.2";
 
         /// <summary>
+        ///     Content format.
+        /// </summary>
+        public static class Format
+        {
+            /// <summary>
+            ///     Exchange format.
+            /// </summary>
+            public const string Exchange = "application/exchange+xml";
+
+            /// <summary>
+            ///     Picture format.
+            /// </summary>
+            public const string Picture = "image/png";
+        }
+
+        /// <summary>
         ///     XML namespaces.
         /// </summary>
         public static class XML

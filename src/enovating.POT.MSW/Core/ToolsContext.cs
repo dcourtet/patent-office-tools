@@ -49,6 +49,11 @@ namespace enovating.POT.MSW.Core
         public TemplateManager TemplateManager { get; private set; }
 
         /// <summary>
+        ///     Gets the temporary directory.
+        /// </summary>
+        public string TemporaryDirectory { get; }
+
+        /// <summary>
         ///     Gets the working directory.
         /// </summary>
         public string WorkingDirectory { get; }
@@ -61,8 +66,11 @@ namespace enovating.POT.MSW.Core
                 throw new ArgumentNullException(nameof(workingDirectory));
             }
 
-            Directory.CreateDirectory(workingDirectory);
             WorkingDirectory = workingDirectory;
+            Directory.CreateDirectory(WorkingDirectory);
+
+            TemporaryDirectory = Path.Combine(WorkingDirectory, "temporary");
+            Directory.CreateDirectory(TemporaryDirectory);
 
             var settingsTarget = Path.Combine(WorkingDirectory, "settings.json");
             Settings = UserSettings.Initialize(settingsTarget);
@@ -94,11 +102,28 @@ namespace enovating.POT.MSW.Core
             Current = new ToolsContext(workingDirectory);
         }
 
+        /// <summary>
+        ///     Deletes the temporary directory.
+        /// </summary>
+        private void DeleteTemporaryDirectory()
+        {
+            try
+            {
+                Directory.Delete(TemporaryDirectory);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
         /// <inheritdoc />
         public void Dispose()
         {
             Provider?.Dispose();
             Settings.Wrote -= OnSettingsChange;
+
+            DeleteTemporaryDirectory();
         }
 
         /// <summary>
