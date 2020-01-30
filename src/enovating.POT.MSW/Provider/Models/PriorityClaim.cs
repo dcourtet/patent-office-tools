@@ -18,30 +18,15 @@ namespace enovating.POT.MSW.Provider.Models
 {
     using System.Xml.Serialization;
 
-    public class Bibliographic
+    public class PriorityClaim
     {
-        [XmlElement("application-reference")]
-        public ApplicationReference ApplicationReference { get; set; }
+        [XmlElement("document-id", Namespace = OPSConstants.XML.Exchange)]
+        public DocumentID[] DocumentID { get; set; }
 
-        [XmlArray("patent-classifications")]
-        [XmlArrayItem("patent-classification")]
-        public PatentClassification[] Classifications { get; set; }
+        [XmlElement("kind")]
+        public string Kind { get; set; }
 
-        [XmlArray("classifications-ipcr")]
-        [XmlArrayItem("classification-ipcr")]
-        public InternationalPatentClassificationR[] IPC { get; set; }
-
-        [XmlElement("parties")]
-        public Parties Parties { get; set; }
-
-        [XmlArray("priority-claims")]
-        [XmlArrayItem("priority-claim")]
-        public PriorityClaim[] PriorityClaims { get; set; }
-
-        [XmlElement("invention-title")]
-        public InventionTitle[] Titles { get; set; }
-
-        [XmlElement("publication-reference")]
-        public PublicationReference PublicationReference { get; set; }
+        [XmlElement("sequence")]
+        public int Sequence { get; set; }
     }
 }

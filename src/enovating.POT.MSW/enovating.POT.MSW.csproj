@@ -224,6 +224,7 @@
     <Compile Include="Provider\Models\PatentClassification.cs" />
     <Compile Include="Provider\Models\PatentClassificationScheme.cs" />
     <Compile Include="Provider\Models\PatentFamily.cs" />
+    <Compile Include="Provider\Models\PriorityClaim.cs" />
     <Compile Include="Provider\Models\PublicationReference.cs" />
     <Compile Include="Provider\Models\WPD.cs" />
     <Compile Include="Provider\OPSClient.cs" />

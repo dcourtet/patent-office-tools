@@ -54,6 +54,16 @@ namespace enovating.POT.MSW.Models
         public PatentFamilyMember[] Family { get; set; }
 
         /// <summary>
+        ///     Gets or sets the first priority date.
+        /// </summary>
+        public DateTime? FirstPriorityDate { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the first priority number.
+        /// </summary>
+        public PatentNumber FirstPriorityNumber { get; set; }
+
+        /// <summary>
         ///     Gets or sets the inventors.
         /// </summary>
         public string[] Inventors { get; set; }

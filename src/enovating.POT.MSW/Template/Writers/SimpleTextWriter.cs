@@ -31,7 +31,12 @@ namespace enovating.POT.MSW.Template.Writers
         /// <inheritdoc />
         public bool Can(string code, Patent value)
         {
-            return new[] { "Abstract", "AppCC", "AppDN", "AppDT", "AppFN", "Applicants", "CPC", "IPC", "Inventors", "PubCC", "PubDN", "PubDT", "PubFN", "PubKC", "Title" }.Contains(code);
+            return new[]
+            {
+                "Abstract", "AppCC", "AppDN", "AppDT", "AppFN", "Applicants",
+                "CPC", "FPriCC", "FPriDN", "FPriDT", "FPriFN", "IPC", "Inventors",
+                "PubCC", "PubDN", "PubDT", "PubFN", "PubKC", "Title"
+            }.Contains(code);
         }
 
         /// <summary>
@@ -99,6 +104,18 @@ namespace enovating.POT.MSW.Template.Writers
                     break;
                 case "CPC":
                     target.Text = Format(value.CPC);
+                    break;
+                case "FPriCC":
+                    target.Text = Format(value.FirstPriorityNumber?.C);
+                    break;
+                case "FPriDN":
+                    target.Text = Format(value.FirstPriorityNumber?.N);
+                    break;
+                case "FPriDT":
+                    target.Text = Format(value.FirstPriorityDate);
+                    break;
+                case "FPriFN":
+                    target.Text = Format(value.FirstPriorityNumber);
                     break;
                 case "IPC":
                     target.Text = Format(value.IPC);

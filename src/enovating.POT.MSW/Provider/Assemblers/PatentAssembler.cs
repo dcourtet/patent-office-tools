@@ -91,6 +91,15 @@ namespace enovating.POT.MSW.Provider.Assemblers
             return sources?.FirstOrDefault(x => x.Type == type);
         }
 
+        private DocumentID ExtractFirstPriority(ExchangeDocument source)
+        {
+            return source.Bibliographic.PriorityClaims?
+                         .Select(e => e.DocumentID.FirstOrDefault(d => d.Type == "epodoc"))
+                         .Where(e => e != null && !string.IsNullOrWhiteSpace(e.Date))
+                         .OrderBy(e => OPSConverter.ToDateTime(e.Date))
+                         .FirstOrDefault();
+        }
+
         private string ExtractInventors(ExchangeDocument source)
         {
             var parties = source.Bibliographic.Parties;
@@ -168,13 +177,22 @@ namespace enovating.POT.MSW.Provider.Assemblers
         {
             // publication
             var publication = ExtractDocumentID(source.Bibliographic.PublicationReference?.DocumentID) ?? throw new ArgumentException("missing publication reference");
-            target.PublicationNumber = new PatentNumber(publication.Country, publication.Number, publication.Kind);
             target.PublicationDate = ExtractReferenceDate(source.Bibliographic.PublicationReference?.DocumentID);
+            target.PublicationNumber = new PatentNumber(publication.Country, publication.Number, publication.Kind);
 
             // application
             var application = ExtractDocumentID(source.Bibliographic.ApplicationReference?.DocumentID) ?? throw new ArgumentException("missing application reference");
-            target.ApplicationNumber = new PatentNumber(application.Country, application.Number);
             target.ApplicationDate = ExtractReferenceDate(source.Bibliographic.PublicationReference?.DocumentID);
+            target.ApplicationNumber = new PatentNumber(application.Country, application.Number);
+
+            // first priority
+            var firstPriority = ExtractFirstPriority(source);
+
+            if (firstPriority != null)
+            {
+                target.FirstPriorityDate = OPSConverter.ToDateTime(firstPriority.Date);
+                target.FirstPriorityNumber = new PatentNumber(firstPriority.Number.Substring(0, 2), firstPriority.Number.Substring(2));
+            }
 
             // texts
             target.Abstract = ExtractAbstract(source);
