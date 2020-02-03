@@ -34,7 +34,7 @@ namespace enovating.POT.MSW.Template.Writers
             return new[]
             {
                 "Abstract", "AppCC", "AppDN", "AppDT", "AppFN", "Applicants",
-                "CPC", "FPriCC", "FPriDN", "FPriDT", "FPriFN", "IPC", "Inventors",
+                "CPC", "FamilyCount", "FPriCC", "FPriDN", "FPriDT", "FPriFN", "IPC", "Inventors",
                 "PubCC", "PubDN", "PubDT", "PubFN", "PubKC", "Title"
             }.Contains(code);
         }
@@ -47,6 +47,16 @@ namespace enovating.POT.MSW.Template.Writers
         private string Format(string input)
         {
             return string.IsNullOrEmpty(input) ? _empty : input;
+        }
+
+        /// <summary>
+        ///     Formats the input value.
+        /// </summary>
+        /// <param name="input">The input value.</param>
+        /// <returns>The output string.</returns>
+        private string Format(int? input)
+        {
+            return input.HasValue ? input.Value.ToString("D") : "0";
         }
 
         /// <summary>
@@ -104,6 +114,9 @@ namespace enovating.POT.MSW.Template.Writers
                     break;
                 case "CPC":
                     target.Text = Format(value.CPC);
+                    break;
+                case "FamilyCount":
+                    target.Text = Format(value.Family?.Length);
                     break;
                 case "FPriCC":
                     target.Text = Format(value.FirstPriorityNumber?.C);
