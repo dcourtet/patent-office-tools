@@ -29,14 +29,35 @@ namespace enovating.POT.MSW.Template.Writers
         /// <inheritdoc />
         public bool Can(string code, Patent value)
         {
-            return new[] { "LKEspacenet", "LKFullText", "LKGPatents" }.Contains(code);
+            return new[]
+            {
+                "LKEspacenet", "LKFullText", "LKGPatents",
+                "LKPNEspacenet", "LKPNFullText", "LKPNGPatents"
+            }.Contains(code);
         }
 
+        /// <summary>
+        ///     Insert a link to the document.
+        /// </summary>
+        /// <param name="target">The target in the document.</param>
+        /// <param name="address">The URL address.</param>
+        /// <param name="text">The text to display.</param>
         private void InsertLink(Range target, string address, string text)
         {
             var previous = target.Font.Size;
             var element = target.Hyperlinks.Add(target, address, TextToDisplay: text);
             element.Range.Font.Size = previous;
+        }
+
+        /// <summary>
+        ///     Insert a link to the document.
+        /// </summary>
+        /// <param name="target">The target in the document.</param>
+        /// <param name="address">The URL address.</param>
+        /// <param name="number">The patent number.</param>
+        private void InsertLink(Range target, string address, PatentNumber number)
+        {
+            InsertLink(target, address, number.ToString());
         }
 
         /// <inheritdoc />
@@ -48,10 +69,19 @@ namespace enovating.POT.MSW.Template.Writers
                     InsertLink(target, value.Links.Espacenet, "Espacenet");
                     break;
                 case "LKFullText":
-                    InsertLink(target, value.Links.FullText, "Full text (PDF)");
+                    InsertLink(target, value.Links.FullText, "Full number (PDF)");
                     break;
                 case "LKGPatents":
                     InsertLink(target, value.Links.GooglePatents, "Google Patents");
+                    break;
+                case "LKPNEspacenet":
+                    InsertLink(target, value.Links.Espacenet, value.PublicationNumber);
+                    break;
+                case "LKPNFullText":
+                    InsertLink(target, value.Links.FullText, value.PublicationNumber);
+                    break;
+                case "LKPNGPatents":
+                    InsertLink(target, value.Links.GooglePatents, value.PublicationNumber);
                     break;
                 default:
                     throw new ArgumentException($"link code '{code}' is not supported");
