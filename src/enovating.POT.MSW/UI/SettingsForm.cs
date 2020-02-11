@@ -76,6 +76,7 @@ namespace enovating.POT.MSW.UI
             }
 
             _opsConsumerKeys.Text = ToolsContext.Current.Settings.OPSConsumerKeys;
+            _patentPDFServerTextBox.Text = ToolsContext.Current.Settings.PatentPDFServer;
             _templateDirectoryTextBox.Text = ToolsContext.Current.Settings.TemplateDirectory;
         }
 
@@ -85,6 +86,7 @@ namespace enovating.POT.MSW.UI
         private void SetSettings()
         {
             ToolsContext.Current.Settings.OPSConsumerKeys = _opsConsumerKeys.Text;
+            ToolsContext.Current.Settings.PatentPDFServer = _patentPDFServerTextBox.Text;
             ToolsContext.Current.Settings.TemplateDirectory = _templateDirectoryTextBox.Text;
         }
 

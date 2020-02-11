@@ -39,6 +39,12 @@ namespace enovating.POT.MSW.Core
         public string OPSConsumerKeys { get; set; }
 
         /// <summary>
+        ///     Gets or sets the patent PDF server address.
+        /// </summary>
+        [DataMember]
+        public string PatentPDFServer { get; set; }
+
+        /// <summary>
         ///     Gets the state.
         /// </summary>
         [IgnoreDataMember]
@@ -85,6 +91,16 @@ namespace enovating.POT.MSW.Core
         /// </summary>
         private void Validate()
         {
+            if (string.IsNullOrEmpty(OPSConsumerKeys))
+            {
+                throw new ArgumentNullException(nameof(OPSConsumerKeys));
+            }
+
+            if (string.IsNullOrEmpty(PatentPDFServer))
+            {
+                throw new ArgumentNullException(nameof(PatentPDFServer));
+            }
+
             if (string.IsNullOrEmpty(Target))
             {
                 throw new ArgumentNullException(nameof(Target));
@@ -93,11 +109,6 @@ namespace enovating.POT.MSW.Core
             if (string.IsNullOrEmpty(TemplateDirectory))
             {
                 throw new ArgumentNullException(nameof(TemplateDirectory));
-            }
-
-            if (string.IsNullOrEmpty(OPSConsumerKeys))
-            {
-                throw new ArgumentNullException(nameof(OPSConsumerKeys));
             }
         }
 

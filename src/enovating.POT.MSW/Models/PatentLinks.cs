@@ -18,6 +18,8 @@ namespace enovating.POT.MSW.Models
 {
     using System;
 
+    using enovating.POT.MSW.Core;
+
     /// <summary>
     ///     Represents patent external links.
     /// </summary>
@@ -47,7 +49,7 @@ namespace enovating.POT.MSW.Models
             }
 
             Espacenet = string.Concat("https://worldwide.espacenet.com/patent/search/publication/", number.Format());
-            FullText = string.Concat("https://go.enovating.com/patent-pdf?number=", number.Format('.'));
+            FullText = string.Format(ToolsContext.Current.Settings.PatentPDFServer, number.Format());
             GooglePatents = string.Concat("https://patents.google.com/?q=", number.Format());
         }
     }
