@@ -96,6 +96,7 @@ namespace enovating.POT.MSW.UI
             "05 - Country alphabetically"});
             this._directionListBox.Location = new System.Drawing.Point(638, 334);
             this._directionListBox.Name = "_directionListBox";
+            this._directionListBox.ScrollAlwaysVisible = true;
             this._directionListBox.Size = new System.Drawing.Size(250, 204);
             this._directionListBox.TabIndex = 6;
             // 
@@ -125,6 +126,7 @@ namespace enovating.POT.MSW.UI
             this._templatesListBox.ItemHeight = 20;
             this._templatesListBox.Location = new System.Drawing.Point(28, 334);
             this._templatesListBox.Name = "_templatesListBox";
+            this._templatesListBox.ScrollAlwaysVisible = true;
             this._templatesListBox.Size = new System.Drawing.Size(604, 204);
             this._templatesListBox.TabIndex = 3;
             // 
@@ -144,6 +146,7 @@ namespace enovating.POT.MSW.UI
             this._previewListBox.ItemHeight = 20;
             this._previewListBox.Location = new System.Drawing.Point(284, 28);
             this._previewListBox.Name = "_previewListBox";
+            this._previewListBox.ScrollAlwaysVisible = true;
             this._previewListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this._previewListBox.Size = new System.Drawing.Size(604, 264);
             this._previewListBox.TabIndex = 1;
@@ -153,6 +156,7 @@ namespace enovating.POT.MSW.UI
             this._numbersTextBox.Location = new System.Drawing.Point(28, 28);
             this._numbersTextBox.Multiline = true;
             this._numbersTextBox.Name = "_numbersTextBox";
+            this._numbersTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this._numbersTextBox.Size = new System.Drawing.Size(250, 264);
             this._numbersTextBox.TabIndex = 0;
             // 
