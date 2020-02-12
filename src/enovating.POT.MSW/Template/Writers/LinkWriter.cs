@@ -69,7 +69,7 @@ namespace enovating.POT.MSW.Template.Writers
                     InsertLink(target, value.Links.Espacenet, "Espacenet");
                     break;
                 case "LKFullText":
-                    InsertLink(target, value.Links.FullText, "Full number (PDF)");
+                    InsertLink(target, value.Links.FullText, "Full Text (PDF)");
                     break;
                 case "LKGPatents":
                     InsertLink(target, value.Links.GooglePatents, "Google Patents");
