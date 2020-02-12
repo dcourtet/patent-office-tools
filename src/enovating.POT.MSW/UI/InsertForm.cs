@@ -61,6 +61,8 @@ namespace enovating.POT.MSW.UI
 
         private void InsertForm_Load(object sender, EventArgs e)
         {
+            ToolsContext.Current.TemplateManager.RefreshAvailableTemplate();
+
             if (ToolsContext.Current.TemplateManager.Available.Length != 0)
             {
                 // sort directions

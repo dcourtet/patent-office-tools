@@ -35,29 +35,29 @@ namespace enovating.POT.MSW.Template
         private const string _templatePattern = "*.dotx";
 
         /// <summary>
-        ///     Gets the available templates.
+        ///     The template directory.
         /// </summary>
-        public TemplateReference[] Available { get; }
-
-        /// <inheritdoc />
-        public TemplateManager(string templateDirectory)
-        {
-            Available = Get(templateDirectory);
-        }
+        private readonly string _templateDirectory;
 
         /// <summary>
         ///     Gets the available templates.
         /// </summary>
-        /// <param name="templateDirectory">The template directory.</param>
-        /// <returns>The available templates.</returns>
-        private TemplateReference[] Get(string templateDirectory)
-        {
-            if (string.IsNullOrEmpty(templateDirectory) || !Directory.Exists(templateDirectory))
-            {
-                throw new ArgumentException("non-compliant template directory: " + templateDirectory);
-            }
+        public TemplateReference[] Available { get; private set; }
 
-            var files = Directory.GetFiles(templateDirectory, _templatePattern);
+        /// <inheritdoc />
+        public TemplateManager(string templateDirectory)
+        {
+            _templateDirectory = templateDirectory ?? throw new ArgumentNullException(nameof(templateDirectory));
+            RefreshAvailableTemplate();
+        }
+
+        /// <summary>
+        ///     Gets the available templates from the directory.
+        /// </summary>
+        /// <returns>The available templates.</returns>
+        private TemplateReference[] Get()
+        {
+            var files = Directory.GetFiles(_templateDirectory, _templatePattern);
             return files.Select(file => new TemplateReference(file)).ToArray();
         }
 
@@ -75,6 +75,20 @@ namespace enovating.POT.MSW.Template
             {
                 writingProcessor.Write(template, value);
             }
+        }
+
+        /// <summary>
+        ///     Refresh the available templates.
+        /// </summary>
+        public void RefreshAvailableTemplate()
+        {
+            if (!Directory.Exists(_templateDirectory))
+            {
+                throw new ArgumentException("template directory not available: " + _templateDirectory);
+            }
+
+            var files = Directory.GetFiles(_templateDirectory, _templatePattern);
+            Available = files.Select(file => new TemplateReference(file)).ToArray();
         }
     }
 }
