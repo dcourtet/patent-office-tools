@@ -19,7 +19,7 @@ namespace enovating.POT.MSW.Core
     using System;
     using System.IO;
 
-    using enovating.POT.MSW.Provider;
+    using enovating.POT.MSW.Providers;
     using enovating.POT.MSW.Template;
 
     /// <summary>
@@ -36,7 +36,7 @@ namespace enovating.POT.MSW.Core
         /// <summary>
         ///     Gets the patent provider.
         /// </summary>
-        public OPSClient Provider { get; private set; }
+        public PatentProvider Provider { get; private set; }
 
         /// <summary>
         ///     Gets the user settings.
@@ -136,7 +136,7 @@ namespace enovating.POT.MSW.Core
                 return;
             }
 
-            Provider = new OPSClient(Settings.OPSConsumerKeys);
+            Provider = new PatentProvider(Settings.OPSConsumerKeys);
             TemplateManager = new TemplateManager(Settings.TemplateDirectory);
         }
 
