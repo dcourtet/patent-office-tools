@@ -34,6 +34,11 @@ namespace enovating.POT.MSW.Models
         public PatentNumber ApplicationNumber { get; set; }
 
         /// <summary>
+        ///     Gets the external links.
+        /// </summary>
+        public PatentLinks Links => new PatentLinks(PublicationNumber);
+
+        /// <summary>
         ///     Gets or sets the publication date.
         /// </summary>
         public DateTime? PublicationDate { get; set; }
