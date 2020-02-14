@@ -38,7 +38,6 @@ namespace enovating.POT.MSW.Template
         private readonly Application _target;
         private readonly IEnumerable<IWriter<Patent>> _writers;
 
-        /// <inheritdoc />
         public WritingProcessor(IEnumerable<IWriter<Patent>> writers)
         {
             _target = Globals.ThisAddIn.Application;

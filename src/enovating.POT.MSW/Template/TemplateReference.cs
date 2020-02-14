@@ -33,7 +33,6 @@ namespace enovating.POT.MSW.Template
         /// </summary>
         public string Path { get; }
 
-        /// <inheritdoc />
         public TemplateReference(string path)
         {
             Path = path;

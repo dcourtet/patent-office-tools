@@ -40,7 +40,6 @@ namespace enovating.POT.MSW.Models
         /// </summary>
         public string GooglePatents { get; }
 
-        /// <inheritdoc />
         public PatentLinks(PatentNumber number)
         {
             if (number == null)

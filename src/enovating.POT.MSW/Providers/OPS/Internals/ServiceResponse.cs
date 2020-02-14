@@ -41,7 +41,6 @@ namespace enovating.POT.MSW.Providers.OPS.Internals
         /// <inheritdoc />
         public bool Success { get; }
 
-        /// <inheritdoc />
         public ServiceResponse(HttpResponseMessage response, Stream responseContent, Func<Stream, TContent> convert)
         {
             Code = (int) response.StatusCode;

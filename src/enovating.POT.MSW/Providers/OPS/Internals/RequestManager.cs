@@ -41,7 +41,6 @@ namespace enovating.POT.MSW.Providers.OPS.Internals
 
         private OAuthToken _cacheToken;
 
-        /// <inheritdoc />
         public RequestManager(string keys)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;

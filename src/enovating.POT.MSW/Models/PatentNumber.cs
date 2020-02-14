@@ -39,7 +39,6 @@ namespace enovating.POT.MSW.Models
         /// </summary>
         public string N { get; private set; }
 
-        /// <inheritdoc />
         public PatentNumber(string c, string n, string k = null)
         {
             C = c ?? throw new ArgumentNullException(nameof(c));
@@ -47,7 +46,6 @@ namespace enovating.POT.MSW.Models
             K = k;
         }
 
-        /// <inheritdoc />
         private PatentNumber() { }
 
         /// <summary>

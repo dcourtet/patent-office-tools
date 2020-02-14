@@ -58,7 +58,6 @@ namespace enovating.POT.MSW.Core
         /// </summary>
         public string WorkingDirectory { get; }
 
-        /// <inheritdoc />
         private ToolsContext(string workingDirectory)
         {
             if (string.IsNullOrEmpty(workingDirectory))

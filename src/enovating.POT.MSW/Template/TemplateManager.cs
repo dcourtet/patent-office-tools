@@ -44,7 +44,6 @@ namespace enovating.POT.MSW.Template
         /// </summary>
         public TemplateReference[] Available { get; private set; }
 
-        /// <inheritdoc />
         public TemplateManager(string templateDirectory)
         {
             _templateDirectory = templateDirectory ?? throw new ArgumentNullException(nameof(templateDirectory));
