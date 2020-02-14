@@ -4,6 +4,7 @@ Patent Office Tools (POT) is a VSTO add-in for Microsoft Word providing automati
 
 ## Authors
 
+* **Aldous Zaugg** - *Initial work* - [enovating SA](https://www.enovating.com/)
 * **David Courtet** - *Initial work* - [enovating SA](https://www.enovating.com/)
 * **Raphaël Imer** - *Initial work* - [enovating SA](https://www.enovating.com/)
 
