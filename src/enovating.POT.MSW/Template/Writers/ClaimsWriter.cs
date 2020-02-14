@@ -32,7 +32,7 @@ namespace enovating.POT.MSW.Template.Writers
         /// <inheritdoc />
         public bool Can(string code, Patent value)
         {
-            return new[] { "Claims" }.Contains(code);
+            return new[] { "Claims", "FirstClaim" }.Contains(code);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace enovating.POT.MSW.Template.Writers
         /// </summary>
         /// <param name="target">The target document.</param>
         /// <param name="values">The values.</param>
-        private void Insert(Range target, string[] values)
+        private void Insert(Range target, params string[] values)
         {
             foreach (var value in values)
             {
@@ -63,7 +63,17 @@ namespace enovating.POT.MSW.Template.Writers
             }
             else
             {
-                Insert(target, value.Claims);
+                switch (code)
+                {
+                    case "Claims":
+                        Insert(target, value.Claims);
+                        break;
+                    case "FirstClaim":
+                        Insert(target, value.Claims[0]);
+                        break;
+                    default:
+                        throw new InvalidOperationException("wrong writer state");
+                }
             }
         }
     }
