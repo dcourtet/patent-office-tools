@@ -42,9 +42,14 @@ namespace enovating.POT.MSW.Template.Writers
         /// <param name="values">The values.</param>
         private void Insert(Range target, params string[] values)
         {
-            foreach (var value in values)
+            for (var index = 0; index < values.Length; index++)
             {
-                target.Text += string.Concat(value, Environment.NewLine);
+                target.Text += string.Concat(index + 1, ". ", values[index]);
+
+                if (index + 1 < values.Length)
+                {
+                    target.Text += Environment.NewLine;
+                }
             }
         }
 
