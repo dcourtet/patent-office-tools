@@ -50,7 +50,12 @@ namespace enovating.POT.MSW.Providers
         /// <returns>The patent document corresponding to the publication number.</returns>
         public async Task<Patent> Retrieve(PatentNumber number, CancellationToken cancellationToken = default)
         {
-            return await _opsClient.Retrieve(number, cancellationToken);
+            var patent = await _opsClient.RetrievePatent(number, cancellationToken);
+
+            patent.Family = await _opsClient.RetrieveFamily(number, cancellationToken);
+            patent.Picture = await _opsClient.RetrieveFirstPicture(number, cancellationToken);
+
+            return patent;
         }
     }
 }

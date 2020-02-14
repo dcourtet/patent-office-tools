@@ -37,7 +37,6 @@ namespace enovating.POT.MSW.Providers.OPS
         /// </summary>
         public string Version => OPSConstants.Version;
 
-        /// <inheritdoc />
         public OPSClient(string keys)
         {
             _requestManager = new RequestManager(keys);
@@ -50,43 +49,12 @@ namespace enovating.POT.MSW.Providers.OPS
         }
 
         /// <summary>
-        ///     Retrieves the patent document corresponding to the publication number.
-        /// </summary>
-        /// <param name="number">The publication number.</param>
-        /// <param name="cancellationToken">The cancellation notification.</param>
-        /// <returns>The patent document corresponding to the publication number.</returns>
-        public async Task<Patent> Retrieve(PatentNumber number, CancellationToken cancellationToken = default)
-        {
-            if (number == null)
-            {
-                throw new ArgumentNullException(nameof(number));
-            }
-
-            var patentAssembler = new PatentAssembler();
-
-            var content = number.Format('.');
-            var result = await _requestManager.Execute("published-data/publication/docdb/biblio", OPSConstants.Format.Exchange, OPSConverter.ToWPD, content, cancellationToken);
-
-            if (!result.Success && result.Content.ExchangeDocuments.Length != 0)
-            {
-                throw new InvalidOperationException($"cannot retrieve root document for {number}: ${result.Error.Code}");
-            }
-
-            var patent = patentAssembler.Convert(result.Content.ExchangeDocuments[0]);
-
-            patent.Family = await RetrieveFamily(number, cancellationToken);
-            patent.Picture = await RetrieveFirstPicture(number, cancellationToken);
-
-            return patent;
-        }
-
-        /// <summary>
         ///     Retrieves all the family members of the document.
         /// </summary>
         /// <param name="number">The publication number.</param>
         /// <param name="cancellationToken">The cancellation notification.</param>
         /// <returns>The family members of the document.</returns>
-        private async Task<PatentFamilyMember[]> RetrieveFamily(PatentNumber number, CancellationToken cancellationToken)
+        public async Task<PatentFamilyMember[]> RetrieveFamily(PatentNumber number, CancellationToken cancellationToken)
         {
             var content = number.Format('.');
             var result = await _requestManager.Execute("family/publication/docdb", OPSConstants.Format.Exchange, OPSConverter.ToWPD, content, cancellationToken);
@@ -106,11 +74,37 @@ namespace enovating.POT.MSW.Providers.OPS
         /// <param name="number">The publication number.</param>
         /// <param name="cancellationToken">The cancellation notification.</param>
         /// <returns>The first picture of the document.</returns>
-        private async Task<byte[]> RetrieveFirstPicture(PatentNumber number, CancellationToken cancellationToken)
+        public async Task<byte[]> RetrieveFirstPicture(PatentNumber number, CancellationToken cancellationToken)
         {
             var target = $"published-data/images/{number.C}/{number.N}/PA/firstpage";
             var result = await _requestManager.Execute(target, OPSConstants.Format.Picture, OPSConverter.ToByteArray, null, cancellationToken);
             return result.Success && result.Content?.Length > 0 ? result.Content : null;
+        }
+
+        /// <summary>
+        ///     Retrieves the patent document corresponding to the publication number.
+        /// </summary>
+        /// <param name="number">The publication number.</param>
+        /// <param name="cancellationToken">The cancellation notification.</param>
+        /// <returns>The patent document corresponding to the publication number.</returns>
+        public async Task<Patent> RetrievePatent(PatentNumber number, CancellationToken cancellationToken = default)
+        {
+            if (number == null)
+            {
+                throw new ArgumentNullException(nameof(number));
+            }
+
+            var patentAssembler = new PatentAssembler();
+
+            var content = number.Format('.');
+            var result = await _requestManager.Execute("published-data/publication/docdb/biblio", OPSConstants.Format.Exchange, OPSConverter.ToWPD, content, cancellationToken);
+
+            if (!result.Success && result.Content.ExchangeDocuments.Length != 0)
+            {
+                throw new InvalidOperationException($"cannot retrieve root document for {number}: ${result.Error.Code}");
+            }
+
+            return patentAssembler.Convert(result.Content.ExchangeDocuments[0]);
         }
     }
 }
