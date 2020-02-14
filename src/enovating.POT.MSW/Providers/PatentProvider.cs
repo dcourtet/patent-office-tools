@@ -21,6 +21,7 @@ namespace enovating.POT.MSW.Providers
     using System.Threading.Tasks;
 
     using enovating.POT.MSW.Models;
+    using enovating.POT.MSW.Providers.EPS;
     using enovating.POT.MSW.Providers.OPS;
 
     /// <summary>
@@ -29,16 +30,19 @@ namespace enovating.POT.MSW.Providers
     /// <seealso cref="IDisposable" />
     public class PatentProvider : IDisposable
     {
+        private readonly EPSClient _epsClient;
         private readonly OPSClient _opsClient;
 
         public PatentProvider(string opsConsumerKey)
         {
+            _epsClient = new EPSClient();
             _opsClient = new OPSClient(opsConsumerKey);
         }
 
         /// <inheritdoc />
         public void Dispose()
         {
+            _epsClient?.Dispose();
             _opsClient?.Dispose();
         }
 
@@ -54,6 +58,11 @@ namespace enovating.POT.MSW.Providers
 
             patent.Family = await _opsClient.RetrieveFamily(number, cancellationToken);
             patent.Picture = await _opsClient.RetrieveFirstPicture(number, cancellationToken);
+
+            if (number.C == "EP" && number.K.StartsWith("B"))
+            {
+                patent.Claims = await _epsClient.RetrieveClaims(number, cancellationToken);
+            }
 
             return patent;
         }

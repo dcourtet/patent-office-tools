@@ -44,6 +44,11 @@ namespace enovating.POT.MSW.Models
         public PatentNumber ApplicationNumber { get; set; }
 
         /// <summary>
+        ///     Gets or sets the claims.
+        /// </summary>
+        public string[] Claims { get; set; }
+
+        /// <summary>
         ///     Gets or sets the Cooperative Patent Classification (CPC).
         /// </summary>
         public string[] CPC { get; set; }

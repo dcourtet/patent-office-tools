@@ -196,6 +196,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Providers\EPS\EPSClient.cs" />
+    <Compile Include="Providers\EPS\EPSConstants.cs" />
+    <Compile Include="Providers\EPS\EPSConverter.cs" />
+    <Compile Include="Providers\EPS\Models\Claim.cs" />
+    <Compile Include="Providers\EPS\Models\Claims.cs" />
+    <Compile Include="Providers\EPS\Models\EPPatentDocument.cs" />
     <Compile Include="Providers\PatentProvider.cs" />
     <Compile Include="Providers\OPS\Abstractions\IOPSError.cs" />
     <Compile Include="Providers\OPS\Abstractions\IOPSResponse.cs" />
@@ -239,6 +245,7 @@
     </Compile>
     <Compile Include="Template\TemplateManager.cs" />
     <Compile Include="Template\TemplateReference.cs" />
+    <Compile Include="Template\Writers\ClaimsWriter.cs" />
     <Compile Include="Template\Writers\FamilyWriter.cs" />
     <Compile Include="Template\Writers\IWriter.cs" />
     <Compile Include="Template\Writers\LinkWriter.cs" />
