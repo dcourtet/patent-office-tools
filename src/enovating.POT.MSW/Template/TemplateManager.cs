@@ -51,16 +51,6 @@ namespace enovating.POT.MSW.Template
         }
 
         /// <summary>
-        ///     Gets the available templates from the directory.
-        /// </summary>
-        /// <returns>The available templates.</returns>
-        private TemplateReference[] Get()
-        {
-            var files = Directory.GetFiles(_templateDirectory, _templatePattern);
-            return files.Select(file => new TemplateReference(file)).ToArray();
-        }
-
-        /// <summary>
         ///     Merge the template with the current document.
         /// </summary>
         /// <param name="template">The template.</param>
