@@ -168,6 +168,7 @@ namespace enovating.POT.MSW.UI
             this.Controls.Add(this._mainPanel);
             this.Controls.Add(this._statusStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InsertForm";
@@ -176,6 +177,7 @@ namespace enovating.POT.MSW.UI
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Insert - Patent Office Tools";
             this.Load += new System.EventHandler(this.InsertForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InsertForm_KeyDown);
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
             this._mainPanel.ResumeLayout(false);

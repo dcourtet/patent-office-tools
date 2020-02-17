@@ -44,7 +44,7 @@ namespace enovating.POT.MSW.UI
             Close();
         }
 
-        private async void InsertButton_Click(object sender, EventArgs e)
+        private async Task Insert()
         {
             SetUIState(false);
 
@@ -56,6 +56,22 @@ namespace enovating.POT.MSW.UI
             }
 
             SetUIState(true);
+        }
+
+        private async void InsertButton_Click(object sender, EventArgs e)
+        {
+            await Insert();
+            Close();
+        }
+
+        private async void InsertForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!e.Control || e.KeyCode != Keys.Enter)
+            {
+                return;
+            }
+
+            await Insert();
             Close();
         }
 
