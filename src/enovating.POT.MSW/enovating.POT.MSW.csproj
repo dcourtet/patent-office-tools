@@ -183,6 +183,7 @@
   <ItemGroup>
     <Compile Include="Core\ToolsContext.cs" />
     <Compile Include="Core\UserSettings.cs" />
+    <Compile Include="Models\PatentClaim.cs" />
     <Compile Include="Models\PatentFamilyMember.cs" />
     <Compile Include="Models\Patent.cs" />
     <Compile Include="Models\PatentLinks.cs" />

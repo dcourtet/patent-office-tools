@@ -82,7 +82,7 @@ namespace enovating.POT.MSW.Providers.EPS
         /// <param name="number">The publication number.</param>
         /// <param name="cancellationToken">The cancellation notification.</param>
         /// <returns>The claims of the document.</returns>
-        public async Task<string[]> RetrieveClaims(PatentNumber number, CancellationToken cancellationToken)
+        public async Task<PatentClaim[]> RetrieveClaims(PatentNumber number, CancellationToken cancellationToken)
         {
             if (number == null)
             {
@@ -97,8 +97,8 @@ namespace enovating.POT.MSW.Providers.EPS
                 return null;
             }
 
-            var results = document.Claims.Where(x => x.Language == _language);
-            return results.SelectMany(x => x.Values).Select(x => x.Text.InnerText).ToArray();
+            var results = document.Claims.Where(x => x.Language == _language).SelectMany(x => x.Values);
+            return results.Select(current => new PatentClaim { Number = current.Number, Text = current.Text.InnerText }).ToArray();
         }
     }
 }

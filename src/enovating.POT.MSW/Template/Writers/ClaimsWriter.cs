@@ -40,11 +40,11 @@ namespace enovating.POT.MSW.Template.Writers
         /// </summary>
         /// <param name="target">The target document.</param>
         /// <param name="values">The values.</param>
-        private void Insert(Range target, params string[] values)
+        private void Insert(Range target, params PatentClaim[] values)
         {
             for (var index = 0; index < values.Length; index++)
             {
-                target.Text += string.Concat(index + 1, ". ", values[index]);
+                target.Text += string.Concat(values[index].Number, ". ", values[index].Text);
 
                 if (index + 1 < values.Length)
                 {
