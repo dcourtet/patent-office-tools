@@ -63,10 +63,13 @@ namespace enovating.POT.MSW.Template
                 new PictureWriter(), new SimpleTextWriter()
             });
 
+            var thisApp = Globals.ThisAddIn.Application;
+            thisApp.UndoRecord.StartCustomRecord("Patents Office Tools");
             foreach (var value in values)
             {
                 writingProcessor.Write(template, value);
             }
+            thisApp.UndoRecord.EndCustomRecord();
         }
 
         /// <summary>
