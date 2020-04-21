@@ -101,6 +101,8 @@ namespace enovating.POT.MSW.Template
                 throw new ArgumentNullException(nameof(value));
             }
 
+            _target.UndoRecord.StartCustomRecord($"POT {value.PublicationNumber}");
+
             try
             {
                 InsertTemplate(template.Path);
@@ -130,6 +132,8 @@ namespace enovating.POT.MSW.Template
                     current.Delete();
                 }
             }
+
+            _target.UndoRecord.EndCustomRecord();
         }
 
         /// <summary>
