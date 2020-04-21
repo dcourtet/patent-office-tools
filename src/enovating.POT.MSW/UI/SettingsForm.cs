@@ -18,6 +18,7 @@ namespace enovating.POT.MSW.UI
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Windows.Forms;
@@ -140,6 +141,11 @@ namespace enovating.POT.MSW.UI
                     current.Value = target.SelectedPath;
                 }
             }
+        }
+
+        private void WorkingDirectoryButton_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", ToolsContext.Current.WorkingDirectory);
         }
     }
 }

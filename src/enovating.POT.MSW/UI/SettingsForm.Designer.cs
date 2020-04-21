@@ -31,7 +31,6 @@ namespace enovating.POT.MSW.UI
             this._cancelButton = new System.Windows.Forms.Button();
             this._applyButton = new System.Windows.Forms.Button();
             this._templateDirectoriesTitle = new System.Windows.Forms.Label();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this._opsConsumerKeys = new System.Windows.Forms.TextBox();
             this._opsConsumerKeysTitle = new System.Windows.Forms.Label();
             this._patentPDFServerTextBox = new System.Windows.Forms.TextBox();
@@ -39,6 +38,7 @@ namespace enovating.POT.MSW.UI
             this._templateDirectoryDataGridView = new System.Windows.Forms.DataGridView();
             this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._workingDirectoryButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._templateDirectoryDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -135,11 +135,22 @@ namespace enovating.POT.MSW.UI
             this.PathColumn.Name = "PathColumn";
             this.PathColumn.ReadOnly = true;
             // 
+            // _workingDirectoryButton
+            // 
+            this._workingDirectoryButton.Location = new System.Drawing.Point(195, 293);
+            this._workingDirectoryButton.Name = "_workingDirectoryButton";
+            this._workingDirectoryButton.Size = new System.Drawing.Size(150, 35);
+            this._workingDirectoryButton.TabIndex = 9;
+            this._workingDirectoryButton.Text = "Working Directory";
+            this._workingDirectoryButton.UseVisualStyleBackColor = true;
+            this._workingDirectoryButton.Click += new System.EventHandler(this.WorkingDirectoryButton_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(893, 345);
+            this.Controls.Add(this._workingDirectoryButton);
             this.Controls.Add(this._templateDirectoryDataGridView);
             this.Controls.Add(this._patentPDFServerTextBox);
             this.Controls.Add(this._patentPDFServerTitle);
@@ -168,7 +179,6 @@ namespace enovating.POT.MSW.UI
         private System.Windows.Forms.Button _cancelButton;
         private System.Windows.Forms.Button _applyButton;
         private System.Windows.Forms.Label _templateDirectoriesTitle;
-        private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.TextBox _opsConsumerKeys;
         private System.Windows.Forms.Label _opsConsumerKeysTitle;
         private System.Windows.Forms.TextBox _patentPDFServerTextBox;
@@ -176,5 +186,6 @@ namespace enovating.POT.MSW.UI
         private System.Windows.Forms.DataGridView _templateDirectoryDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn PathColumn;
+        private System.Windows.Forms.Button _workingDirectoryButton;
     }
 }
