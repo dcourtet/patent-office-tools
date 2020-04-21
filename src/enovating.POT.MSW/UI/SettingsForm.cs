@@ -17,6 +17,9 @@
 namespace enovating.POT.MSW.UI
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
 
     using enovating.POT.MSW.Core;
@@ -77,7 +80,11 @@ namespace enovating.POT.MSW.UI
 
             _opsConsumerKeys.Text = ToolsContext.Current.Settings.OPSConsumerKeys;
             _patentPDFServerTextBox.Text = ToolsContext.Current.Settings.PatentPDFServer;
-            _templateDirectoryTextBox.Text = ToolsContext.Current.Settings.TemplateDirectory;
+
+            foreach (var current in ToolsContext.Current.Settings.TemplateDirectories)
+            {
+                _templateDirectoryDataGridView.Rows.Add(current.Name, current.Path);
+            }
         }
 
         /// <summary>
@@ -87,24 +94,50 @@ namespace enovating.POT.MSW.UI
         {
             ToolsContext.Current.Settings.OPSConsumerKeys = _opsConsumerKeys.Text;
             ToolsContext.Current.Settings.PatentPDFServer = _patentPDFServerTextBox.Text;
-            ToolsContext.Current.Settings.TemplateDirectory = _templateDirectoryTextBox.Text;
+
+            var templateDirectories = new List<TemplateDirectory>();
+
+            foreach (DataGridViewRow current in _templateDirectoryDataGridView.Rows)
+            {
+                var name = (string) current.Cells[0].Value ?? "Directory";
+                var path = (string) current.Cells[1].Value;
+
+                if (string.IsNullOrEmpty(path) || !Directory.Exists(path))
+                {
+                    continue;
+                }
+
+                if (templateDirectories.All(x => x.Path != path))
+                {
+                    templateDirectories.Add(new TemplateDirectory { Name = name, Path = path });
+                }
+            }
+
+            ToolsContext.Current.Settings.TemplateDirectories = templateDirectories.ToArray();
         }
 
-        private void TemplateDirectoryTextBox_Click(object sender, EventArgs e)
+        private void TemplateDirectoryDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex != 1)
+            {
+                return;
+            }
+
+            var current = _templateDirectoryDataGridView[e.ColumnIndex, e.RowIndex];
+
             using (var target = new FolderBrowserDialog())
             {
                 target.RootFolder = Environment.SpecialFolder.MyComputer;
                 target.ShowNewFolderButton = false;
 
-                if (!string.IsNullOrEmpty(_templateDirectoryTextBox.Text))
+                if (!string.IsNullOrEmpty((string) current.Value))
                 {
-                    target.SelectedPath = _templateDirectoryTextBox.Text;
+                    target.SelectedPath = (string) current.Value;
                 }
 
                 if (target.ShowDialog() == DialogResult.OK)
                 {
-                    _templateDirectoryTextBox.Text = target.SelectedPath;
+                    current.Value = target.SelectedPath;
                 }
             }
         }

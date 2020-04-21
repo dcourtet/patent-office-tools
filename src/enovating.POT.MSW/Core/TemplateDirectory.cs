@@ -14,39 +14,32 @@
 // Copyright 2019-2020 enovating SA <https://www.enovating.com/>
 // -------------------------------------------------------------------------------------
 
-namespace enovating.POT.MSW.Template
+namespace enovating.POT.MSW.Core
 {
     using System.IO;
+    using System.Runtime.Serialization;
 
     /// <summary>
-    ///     Template reference.
+    ///     Template directory.
     /// </summary>
-    public class TemplateReference
+    public class TemplateDirectory
     {
         /// <summary>
-        ///     Gets the name.
+        ///     Gets the availability.
         /// </summary>
-        public string Name { get; }
+        [IgnoreDataMember]
+        public bool Available => Directory.Exists(Path);
 
         /// <summary>
-        ///     Gets the path.
+        ///     Gets or sets the name.
         /// </summary>
-        public string Path { get; }
+        [DataMember]
+        public string Name { get; set; }
 
-        public TemplateReference(string templateDirectoryName, string path)
-        {
-            Path = path;
-
-            var fileInfo = new FileInfo(Path);
-            var filename = fileInfo.Name.Replace(".dotx", null);
-
-            Name = $"{templateDirectoryName}\t\t{filename}";
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
-        }
+        /// <summary>
+        ///     Gets or sets the path.
+        /// </summary>
+        [DataMember]
+        public string Path { get; set; }
     }
 }

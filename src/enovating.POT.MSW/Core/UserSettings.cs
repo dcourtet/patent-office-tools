@@ -57,10 +57,10 @@ namespace enovating.POT.MSW.Core
         public string Target { get; private set; }
 
         /// <summary>
-        ///     Gets or sets the template directory.
+        ///     Gets or sets the template directories.
         /// </summary>
         [DataMember]
-        public string TemplateDirectory { get; set; }
+        public TemplateDirectory[] TemplateDirectories { get; set; }
 
         /// <summary>
         ///     Initialize the user settings.
@@ -106,9 +106,9 @@ namespace enovating.POT.MSW.Core
                 throw new ArgumentNullException(nameof(Target));
             }
 
-            if (string.IsNullOrEmpty(TemplateDirectory))
+            if (TemplateDirectories == null)
             {
-                throw new ArgumentNullException(nameof(TemplateDirectory));
+                throw new ArgumentNullException(nameof(TemplateDirectories));
             }
         }
 

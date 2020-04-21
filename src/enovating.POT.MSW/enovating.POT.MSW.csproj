@@ -181,6 +181,7 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Core\TemplateDirectory.cs" />
     <Compile Include="Core\ToolsContext.cs" />
     <Compile Include="Core\UserSettings.cs" />
     <Compile Include="Models\PatentClaim.cs" />
@@ -289,6 +290,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

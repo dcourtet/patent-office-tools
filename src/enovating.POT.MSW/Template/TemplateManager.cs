@@ -21,6 +21,7 @@ namespace enovating.POT.MSW.Template
     using System.IO;
     using System.Linq;
 
+    using enovating.POT.MSW.Core;
     using enovating.POT.MSW.Models;
     using enovating.POT.MSW.Template.Writers;
 
@@ -35,18 +36,24 @@ namespace enovating.POT.MSW.Template
         private const string _templatePattern = "*.dotx";
 
         /// <summary>
-        ///     The template directory.
+        ///     The template directories.
         /// </summary>
-        private readonly string _templateDirectory;
+        private readonly TemplateDirectory[] _templateDirectories;
 
         /// <summary>
         ///     Gets the available templates.
         /// </summary>
         public TemplateReference[] Available { get; private set; }
 
-        public TemplateManager(string templateDirectory)
+        public TemplateManager(TemplateDirectory[] templateDirectories)
         {
-            _templateDirectory = templateDirectory ?? throw new ArgumentNullException(nameof(templateDirectory));
+            if (templateDirectories == null)
+            {
+                throw new ArgumentNullException(nameof(templateDirectories));
+            }
+
+            _templateDirectories = templateDirectories.Where(x => x.Available).ToArray();
+
             RefreshAvailableTemplate();
         }
 
@@ -74,13 +81,20 @@ namespace enovating.POT.MSW.Template
         /// </summary>
         public void RefreshAvailableTemplate()
         {
-            if (!Directory.Exists(_templateDirectory))
+            if (_templateDirectories.Length == 0)
             {
-                throw new ArgumentException("template directory not available: " + _templateDirectory);
+                throw new ArgumentException("no available template directory");
             }
 
-            var files = Directory.GetFiles(_templateDirectory, _templatePattern);
-            Available = files.Select(file => new TemplateReference(file)).ToArray();
+            var results = new List<TemplateReference>();
+
+            foreach (var templateDirectory in _templateDirectories)
+            {
+                var files = Directory.GetFiles(templateDirectory.Path, _templatePattern);
+                results.AddRange(files.Select(file => new TemplateReference(templateDirectory.Name, file)));
+            }
+
+            Available = results.OrderBy(x => x.Name).ToArray();
         }
     }
 }
