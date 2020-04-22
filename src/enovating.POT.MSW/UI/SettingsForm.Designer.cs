@@ -105,16 +105,20 @@ namespace enovating.POT.MSW.UI
             // 
             // _templateDirectoryDataGridView
             // 
+            this._templateDirectoryDataGridView.AllowUserToResizeColumns = false;
+            this._templateDirectoryDataGridView.AllowUserToResizeRows = false;
             this._templateDirectoryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._templateDirectoryDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameColumn,
             this.PathColumn});
             this._templateDirectoryDataGridView.Location = new System.Drawing.Point(195, 87);
+            this._templateDirectoryDataGridView.MultiSelect = false;
             this._templateDirectoryDataGridView.Name = "_templateDirectoryDataGridView";
             this._templateDirectoryDataGridView.RowHeadersVisible = false;
             this._templateDirectoryDataGridView.RowHeadersWidth = 62;
             this._templateDirectoryDataGridView.RowTemplate.Height = 28;
             this._templateDirectoryDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this._templateDirectoryDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._templateDirectoryDataGridView.Size = new System.Drawing.Size(670, 200);
             this._templateDirectoryDataGridView.TabIndex = 8;
             this._templateDirectoryDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TemplateDirectoryDataGridView_CellClick);
