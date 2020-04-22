@@ -36,9 +36,9 @@ namespace enovating.POT.MSW.UI
             this._patentPDFServerTextBox = new System.Windows.Forms.TextBox();
             this._patentPDFServerTitle = new System.Windows.Forms.Label();
             this._templateDirectoryDataGridView = new System.Windows.Forms.DataGridView();
+            this._workingDirectoryButton = new System.Windows.Forms.Button();
             this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PathColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._workingDirectoryButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._templateDirectoryDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,22 +123,6 @@ namespace enovating.POT.MSW.UI
             this._templateDirectoryDataGridView.TabIndex = 8;
             this._templateDirectoryDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TemplateDirectoryDataGridView_CellClick);
             // 
-            // NameColumn
-            // 
-            this.NameColumn.HeaderText = "Name";
-            this.NameColumn.MaxInputLength = 10;
-            this.NameColumn.MinimumWidth = 8;
-            this.NameColumn.Name = "NameColumn";
-            this.NameColumn.Width = 150;
-            // 
-            // PathColumn
-            // 
-            this.PathColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PathColumn.HeaderText = "Path";
-            this.PathColumn.MinimumWidth = 8;
-            this.PathColumn.Name = "PathColumn";
-            this.PathColumn.ReadOnly = true;
-            // 
             // _workingDirectoryButton
             // 
             this._workingDirectoryButton.Location = new System.Drawing.Point(195, 293);
@@ -148,6 +132,24 @@ namespace enovating.POT.MSW.UI
             this._workingDirectoryButton.Text = "Working Directory";
             this._workingDirectoryButton.UseVisualStyleBackColor = true;
             this._workingDirectoryButton.Click += new System.EventHandler(this.WorkingDirectoryButton_Click);
+            // 
+            // NameColumn
+            // 
+            this.NameColumn.HeaderText = "Name";
+            this.NameColumn.MaxInputLength = 10;
+            this.NameColumn.MinimumWidth = 8;
+            this.NameColumn.Name = "NameColumn";
+            this.NameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.NameColumn.Width = 150;
+            // 
+            // PathColumn
+            // 
+            this.PathColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PathColumn.HeaderText = "Path";
+            this.PathColumn.MinimumWidth = 8;
+            this.PathColumn.Name = "PathColumn";
+            this.PathColumn.ReadOnly = true;
+            this.PathColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SettingsForm
             // 
@@ -188,8 +190,8 @@ namespace enovating.POT.MSW.UI
         private System.Windows.Forms.TextBox _patentPDFServerTextBox;
         private System.Windows.Forms.Label _patentPDFServerTitle;
         private System.Windows.Forms.DataGridView _templateDirectoryDataGridView;
+        private System.Windows.Forms.Button _workingDirectoryButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn PathColumn;
-        private System.Windows.Forms.Button _workingDirectoryButton;
     }
 }

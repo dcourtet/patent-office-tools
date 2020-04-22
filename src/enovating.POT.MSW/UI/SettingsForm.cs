@@ -119,7 +119,7 @@ namespace enovating.POT.MSW.UI
 
         private void TemplateDirectoryDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex != 1)
+            if (e.ColumnIndex != 1 || e.RowIndex < 0)
             {
                 return;
             }
