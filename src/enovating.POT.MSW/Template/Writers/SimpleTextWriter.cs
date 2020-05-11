@@ -46,7 +46,7 @@ namespace enovating.POT.MSW.Template.Writers
         /// <returns>The output string.</returns>
         private string Format(string input)
         {
-            return string.IsNullOrEmpty(input) ? _empty : input;
+            return string.IsNullOrEmpty(input) ? _empty : input.Trim('\r', '\n');
         }
 
         /// <summary>
