@@ -18,6 +18,7 @@ namespace enovating.POT.MSW.Providers
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -64,6 +65,20 @@ namespace enovating.POT.MSW.Providers
 
                 patent.Family = await _opsClient.RetrieveFamily(number, cancellationToken);
                 patent.Picture = await _opsClient.RetrieveFirstPicture(number, cancellationToken);
+
+                if (string.IsNullOrEmpty(patent.Abstract) && patent.Family.Any(x => x.PublicationNumber.C == "WO"))
+                {
+                    try
+                    {
+                        var pctFamilyMember = patent.Family.First(x => x.PublicationNumber.C == "WO");
+                        var pctPatent = await _opsClient.RetrievePatent(pctFamilyMember.PublicationNumber, cancellationToken);
+                        patent.Abstract = string.Concat("[FROM ", pctFamilyMember.PublicationNumber, "] ", pctPatent.Abstract);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
 
                 if (number.C == "EP" && number.K.StartsWith("B"))
                 {
