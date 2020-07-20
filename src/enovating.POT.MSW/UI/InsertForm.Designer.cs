@@ -28,9 +28,11 @@ namespace enovating.POT.MSW.UI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InsertForm));
             this._progressBar = new System.Windows.Forms.ToolStripProgressBar();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._progressLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this._toolsDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this._mainPanel = new System.Windows.Forms.Panel();
             this._directionListBox = new System.Windows.Forms.ListBox();
             this._insertButton = new System.Windows.Forms.Button();
@@ -54,7 +56,9 @@ namespace enovating.POT.MSW.UI
             this._statusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._progressBar,
-            this._progressLabel});
+            this._progressLabel,
+            this._toolsDropDownButton});
+            this._statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this._statusStrip.Location = new System.Drawing.Point(0, 599);
             this._statusStrip.Name = "_statusStrip";
             this._statusStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -67,6 +71,19 @@ namespace enovating.POT.MSW.UI
             this._progressLabel.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this._progressLabel.Name = "_progressLabel";
             this._progressLabel.Size = new System.Drawing.Size(0, 21);
+            // 
+            // _toolsDropDownButton
+            // 
+            this._toolsDropDownButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this._toolsDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this._toolsDropDownButton.DropDownDirection = System.Windows.Forms.ToolStripDropDownDirection.AboveRight;
+            this._toolsDropDownButton.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this._toolsDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("_toolsDropDownButton.Image")));
+            this._toolsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolsDropDownButton.Name = "_toolsDropDownButton";
+            this._toolsDropDownButton.Size = new System.Drawing.Size(63, 25);
+            this._toolsDropDownButton.Text = "Tools";
+            this._toolsDropDownButton.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
             // _mainPanel
             // 
@@ -199,5 +216,6 @@ namespace enovating.POT.MSW.UI
         private System.Windows.Forms.ListBox _templatesListBox;
         private System.Windows.Forms.ToolStripStatusLabel _progressLabel;
         private System.Windows.Forms.ListBox _directionListBox;
+        private System.Windows.Forms.ToolStripDropDownButton _toolsDropDownButton;
     }
 }

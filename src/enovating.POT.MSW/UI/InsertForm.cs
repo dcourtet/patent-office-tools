@@ -18,6 +18,7 @@ namespace enovating.POT.MSW.UI
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Forms;
@@ -64,6 +65,19 @@ namespace enovating.POT.MSW.UI
             Close();
         }
 
+        private void InsertExplorerToolsDropDownButton(string name, string target)
+        {
+            var element = new ToolStripMenuItem();
+
+            element.Click += OnToolStripMenuItemClick;
+
+            element.Tag = target;
+            element.Text = $"Open {name} in Windows Explorer";
+            element.RightToLeft = RightToLeft.No;
+
+            _toolsDropDownButton.DropDownItems.Add(element);
+        }
+
         private async void InsertForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (!e.Control || e.KeyCode != Keys.Enter)
@@ -78,6 +92,19 @@ namespace enovating.POT.MSW.UI
         private void InsertForm_Load(object sender, EventArgs e)
         {
             ToolsContext.Current.TemplateManager.RefreshAvailableTemplate();
+
+            InsertExplorerToolsDropDownButton("Temporary Directory", ToolsContext.Current.TemporaryDirectory);
+            InsertExplorerToolsDropDownButton("Working Directory", ToolsContext.Current.WorkingDirectory);
+
+            _toolsDropDownButton.DropDownItems.Add(new ToolStripSeparator());
+
+            foreach (var directory in ToolsContext.Current.Settings.TemplateDirectories)
+            {
+                if (directory.Available)
+                {
+                    InsertExplorerToolsDropDownButton(directory.Name, directory.Path);
+                }
+            }
 
             if (ToolsContext.Current.TemplateManager.Available.Length != 0)
             {
@@ -118,6 +145,12 @@ namespace enovating.POT.MSW.UI
             ToolsContext.Current.TemplateManager.Merge(template, values);
 
             await UpdateProgression(2500);
+        }
+
+        private void OnToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            var target = (string) ((ToolStripMenuItem) sender).Tag;
+            Process.Start("explorer.exe", target);
         }
 
         private async void PreviewButton_Click(object sender, EventArgs e)
