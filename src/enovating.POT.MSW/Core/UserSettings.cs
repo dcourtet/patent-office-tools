@@ -74,15 +74,22 @@ namespace enovating.POT.MSW.Core
                 return new UserSettings { Target = target };
             }
 
-            using (var stream = new FileStream(target, FileMode.Open, FileAccess.Read))
+            try
             {
-                var serializer = new DataContractJsonSerializer(typeof(UserSettings));
-                var settings = (UserSettings) serializer.ReadObject(stream);
+                using (var stream = new FileStream(target, FileMode.Open, FileAccess.Read))
+                {
+                    var serializer = new DataContractJsonSerializer(typeof(UserSettings));
+                    var settings = (UserSettings) serializer.ReadObject(stream);
 
-                settings.Target = target;
-                settings.Validate();
+                    settings.Target = target;
+                    settings.Validate();
 
-                return settings;
+                    return settings;
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new UserSettingsException("non-compliant file format", exception);
             }
         }
 

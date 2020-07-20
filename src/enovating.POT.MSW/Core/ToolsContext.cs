@@ -102,6 +102,15 @@ namespace enovating.POT.MSW.Core
         }
 
         /// <summary>
+        ///     Reset the context.
+        /// </summary>
+        /// <param name="workingDirectory">The working directory.</param>
+        public static void Reset(string workingDirectory)
+        {
+            Directory.Delete(workingDirectory, true);
+        }
+
+        /// <summary>
         ///     Deletes the temporary directory.
         /// </summary>
         private void DeleteTemporaryDirectory()

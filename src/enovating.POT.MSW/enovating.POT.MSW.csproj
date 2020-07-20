@@ -184,6 +184,7 @@
     <Compile Include="Core\TemplateDirectory.cs" />
     <Compile Include="Core\ToolsContext.cs" />
     <Compile Include="Core\UserSettings.cs" />
+    <Compile Include="Core\UserSettingsException.cs" />
     <Compile Include="Models\PatentClaim.cs" />
     <Compile Include="Models\PatentFamilyMember.cs" />
     <Compile Include="Models\Patent.cs" />

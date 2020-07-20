@@ -47,6 +47,11 @@ namespace enovating.POT.MSW
             {
                 ToolsContext.Initialize(workingDirectory);
             }
+            catch (UserSettingsException)
+            {
+                ToolsContext.Reset(workingDirectory);
+                ToolsContext.Initialize(workingDirectory);
+            }
             catch (Exception exception)
             {
                 MessageBox.Show("Fatal error during module initialization: " + exception.Message, "Patent Office Tools");
