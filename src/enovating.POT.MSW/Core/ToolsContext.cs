@@ -108,7 +108,7 @@ namespace enovating.POT.MSW.Core
         {
             try
             {
-                Directory.Delete(TemporaryDirectory);
+                Directory.Delete(TemporaryDirectory, true);
             }
             catch
             {
