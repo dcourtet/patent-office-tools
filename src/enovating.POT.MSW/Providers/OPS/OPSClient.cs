@@ -78,6 +78,20 @@ namespace enovating.POT.MSW.Providers.OPS
         {
             var target = $"published-data/images/{number.C}/{number.N}/PA/firstpage";
             var result = await _requestManager.Execute(target, OPSConstants.Format.Picture, OPSConverter.ToByteArray, null, cancellationToken);
+
+            if (result.Success && result.Content?.Length > 0)
+            {
+                return result.Content;
+            }
+
+            target = $"published-data/images/{number.C}/{number.N}/{number.K}/fullimage?range=1";
+            result = await _requestManager.Execute(target, "application/tiff", OPSConverter.ToByteArray, null, cancellationToken);
+
+            if (result.Success && result.Content?.Length > 0)
+            {
+                return OPSConverter.ToPNG(result.Content);
+            }
+
             return result.Success && result.Content?.Length > 0 ? result.Content : null;
         }
 

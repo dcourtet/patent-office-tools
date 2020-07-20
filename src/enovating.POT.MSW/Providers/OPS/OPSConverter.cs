@@ -17,6 +17,8 @@
 namespace enovating.POT.MSW.Providers.OPS
 {
     using System;
+    using System.Drawing;
+    using System.Drawing.Imaging;
     using System.Globalization;
     using System.IO;
     using System.Text;
@@ -85,6 +87,22 @@ namespace enovating.POT.MSW.Providers.OPS
 
             // failure
             return null;
+        }
+
+        /// <summary>
+        ///     Converts the TIFF input to a PNG picture.
+        /// </summary>
+        /// <param name="input">The TIFF input.</param>
+        /// <returns>The PNG picture.</returns>
+        public static byte[] ToPNG(byte[] input)
+        {
+            using (var inputStream = new MemoryStream(input))
+            using (var outputStream = new MemoryStream())
+            using (var bitmap = new Bitmap(inputStream))
+            {
+                bitmap.Save(outputStream, ImageFormat.Png);
+                return outputStream.ToArray();
+            }
         }
 
         /// <summary>
