@@ -153,7 +153,7 @@ namespace enovating.POT.MSW.UI
                     await UpdateProgression(number.ToString());
 
                     var patent = await ToolsContext.Current.Provider.Retrieve(number);
-                    var patentTitle = string.Concat(number, '\t', patent.Title.ToUpper());
+                    var patentTitle = string.Concat(number, '\t', patent.Title?.ToUpper() ?? "N/A");
 
                     _previewListBox.Items.Add(patentTitle);
 
