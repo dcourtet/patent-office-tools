@@ -135,7 +135,7 @@ namespace enovating.POT.MSW.Core
                 return;
             }
 
-            Provider = new PatentProvider(Settings.OPSConsumerKeys);
+            Provider = new PatentProvider(Settings.OPSConsumerKeys, TemporaryDirectory);
             TemplateManager = new TemplateManager(Settings.TemplateDirectories);
         }
 

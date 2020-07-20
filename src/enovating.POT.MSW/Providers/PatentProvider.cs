@@ -17,6 +17,8 @@
 namespace enovating.POT.MSW.Providers
 {
     using System;
+    using System.IO;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -32,11 +34,13 @@ namespace enovating.POT.MSW.Providers
     {
         private readonly EPSClient _epsClient;
         private readonly OPSClient _opsClient;
+        private readonly string _temporaryDirectory;
 
-        public PatentProvider(string opsConsumerKey)
+        public PatentProvider(string opsConsumerKey, string temporaryDirectory)
         {
             _epsClient = new EPSClient();
             _opsClient = new OPSClient(opsConsumerKey);
+            _temporaryDirectory = temporaryDirectory;
         }
 
         /// <inheritdoc />
@@ -54,17 +58,48 @@ namespace enovating.POT.MSW.Providers
         /// <returns>The patent document corresponding to the publication number.</returns>
         public async Task<Patent> Retrieve(PatentNumber number, CancellationToken cancellationToken = default)
         {
-            var patent = await _opsClient.RetrievePatent(number, cancellationToken);
-
-            patent.Family = await _opsClient.RetrieveFamily(number, cancellationToken);
-            patent.Picture = await _opsClient.RetrieveFirstPicture(number, cancellationToken);
-
-            if (number.C == "EP" && number.K.StartsWith("B"))
+            try
             {
-                patent.Claims = await _epsClient.RetrieveClaims(number, cancellationToken);
-            }
+                var patent = await _opsClient.RetrievePatent(number, cancellationToken);
 
-            return patent;
+                patent.Family = await _opsClient.RetrieveFamily(number, cancellationToken);
+                patent.Picture = await _opsClient.RetrieveFirstPicture(number, cancellationToken);
+
+                if (number.C == "EP" && number.K.StartsWith("B"))
+                {
+                    patent.Claims = await _epsClient.RetrieveClaims(number, cancellationToken);
+                }
+
+                return patent;
+            }
+            catch (Exception exception)
+            {
+                WriteError(number, exception);
+                throw;
+            }
+        }
+
+        /// <summary>
+        ///     Write the error to a text file.
+        /// </summary>
+        /// <param name="number">The publication number.</param>
+        /// <param name="exception">The exception.</param>
+        private void WriteError(PatentNumber number, Exception exception)
+        {
+            try
+            {
+                var content = new StringBuilder();
+                var filename = Path.Combine(_temporaryDirectory, $"{number.Format()}.txt");
+
+                content.AppendFormat("[{0}] {1}{2}", DateTime.Now, exception.Message, Environment.NewLine);
+                content.Append(exception.StackTrace).Append(Environment.NewLine).Append(Environment.NewLine);
+
+                File.AppendAllText(filename, content.ToString());
+            }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }
