@@ -147,6 +147,13 @@ namespace enovating.POT.MSW.UI
             await UpdateProgression(2500);
         }
 
+        private void OnTemplatesListBoxDoubleClick(object sender, EventArgs e)
+        {
+            var listBox = (ListBox) sender;
+            var templateReference = (TemplateReference) listBox.SelectedItem;
+            Process.Start(templateReference.Path);
+        }
+
         private void OnToolStripMenuItemClick(object sender, EventArgs e)
         {
             var target = (string) ((ToolStripMenuItem) sender).Tag;

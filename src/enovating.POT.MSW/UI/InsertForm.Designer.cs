@@ -146,6 +146,7 @@ namespace enovating.POT.MSW.UI
             this._templatesListBox.ScrollAlwaysVisible = true;
             this._templatesListBox.Size = new System.Drawing.Size(604, 204);
             this._templatesListBox.TabIndex = 3;
+            this._templatesListBox.DoubleClick += new System.EventHandler(this.OnTemplatesListBoxDoubleClick);
             // 
             // _previewButton
             // 
