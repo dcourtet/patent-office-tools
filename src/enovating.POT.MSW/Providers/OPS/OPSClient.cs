@@ -99,7 +99,7 @@ namespace enovating.POT.MSW.Providers.OPS
             var content = number.Format('.');
             var result = await _requestManager.Execute("published-data/publication/docdb/biblio", OPSConstants.Format.Exchange, OPSConverter.ToWPD, content, cancellationToken);
 
-            if (!result.Success && result.Content.ExchangeDocuments.Length != 0)
+            if (!result.Success || result.Content.ExchangeDocuments?.Length != 0)
             {
                 throw new InvalidOperationException($"cannot retrieve root document for {number}: ${result.Error.Code}");
             }
