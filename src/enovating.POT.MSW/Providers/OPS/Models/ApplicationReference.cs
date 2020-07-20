@@ -22,11 +22,5 @@ namespace enovating.POT.MSW.Providers.OPS.Models
     {
         [XmlElement("document-id", Namespace = OPSConstants.XML.Exchange)]
         public DocumentID[] DocumentID { get; set; }
-
-        [XmlAttribute("doc-id")]
-        public int ID { get; set; }
-
-        [XmlAttribute("is-representative")]
-        public string Representative { get; set; }
     }
 }

@@ -22,8 +22,5 @@ namespace enovating.POT.MSW.Providers.OPS.Models
     {
         [XmlAttribute("scheme")]
         public string Name { get; set; }
-
-        [XmlAttribute("office")]
-        public string Office { get; set; }
     }
 }

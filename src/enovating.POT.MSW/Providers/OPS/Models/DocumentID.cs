@@ -32,7 +32,6 @@ namespace enovating.POT.MSW.Providers.OPS.Models
         [XmlElement("date")]
         public string Date { get; set; }
 
-
         [XmlAttribute("document-id-type")]
         public string Type { get; set; }
     }
