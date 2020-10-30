@@ -182,7 +182,7 @@ namespace enovating.POT.MSW.Providers.OPS.Assemblers
 
             // application
             var application = ExtractDocumentID(source.Bibliographic.ApplicationReference?.DocumentID) ?? throw new ArgumentException("missing application reference");
-            target.ApplicationDate = ExtractReferenceDate(source.Bibliographic.PublicationReference?.DocumentID);
+            target.ApplicationDate = ExtractReferenceDate(source.Bibliographic.ApplicationReference?.DocumentID);
             target.ApplicationNumber = new PatentNumber(application.Country, application.Number);
 
             // first priority
